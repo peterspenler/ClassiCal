@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+
+    android:background="@color/md_blue_grey_600">
+
+    <TextView
+        android:id="@+id/assignmentTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:text="ASSIGNMENT TITLE"
+        android:textStyle="bold"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/assignmentDueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/assignmentTitleText"
+        android:layout_marginRight="20dp"
+        android:text="Due"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WORTH 100%"
+        android:textColor="@color/md_white"
+        android:layout_alignTop="@+id/assignmentTitleText"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/assignmentValueText"/>
+
+    <TextView
+        android:id="@+id/assignmentDueDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/assignmentValueText"
+        android:layout_marginRight="20dp"
+        android:text="NOV 26th"
+        android:textColor="@color/md_white"
+        android:textStyle="italic" />
+
+</RelativeLayout>

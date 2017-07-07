@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/res/merged/androidTest/debug/layout/dialog_grid.xml",
+        "source": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/bundles/debug/res/layout/dialog_grid.xml"
+    },
+    {
+        "merged": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/res/merged/androidTest/debug/layout/dialog_list.xml",
+        "source": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/bundles/debug/res/layout/dialog_list.xml"
+    },
+    {
+        "merged": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/res/merged/androidTest/debug/layout/dialog_view.xml",
+        "source": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/bundles/debug/res/layout/dialog_view.xml"
+    },
+    {
+        "merged": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/res/merged/androidTest/debug/layout/base_container.xml",
+        "source": "/home/peter/AndroidStudioProjects/ClassManager/dialogplus/build/intermediates/bundles/debug/res/layout/base_container.xml"
+    }
+]

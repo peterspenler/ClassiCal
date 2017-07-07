@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/md_blue_grey_400"
+    android:id="@+id/courseInfoLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/assignmentsLeftInfoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:text="876 Assignments left"
+        android:textStyle="bold"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/courseWeightInfoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/assignmentsLeftInfoText"
+        android:layout_marginRight="20dp"
+        android:text="0.5 WEIGHT"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Mark: "
+        android:textColor="@color/md_white"
+        android:layout_alignTop="@+id/assignmentsLeftInfoText"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/currentMarkTitleText"/>
+
+    <TextView
+        android:id="@+id/courseDueDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="false"
+        android:layout_alignTop="@+id/currentMarkTitleText"
+        android:layout_alignLeft="@+id/currentMarkTitleText"
+        android:layout_marginLeft="86dp"
+        android:text="100%"
+        android:textColor="@color/md_white"
+        android:textStyle="italic"/>
+</RelativeLayout>

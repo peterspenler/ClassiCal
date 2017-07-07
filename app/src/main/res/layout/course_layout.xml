@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+
+    android:background="@color/md_blue_grey_600">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/course_square"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/courseSquare"/>
+
+    <TextView
+        android:id="@+id/courseChar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/courseSquare"
+        android:layout_alignBottom="@+id/courseSquare"
+        android:text="M"
+        android:textColor="@color/md_white"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/courseTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/courseSquare"
+        android:layout_alignTop="@+id/courseSquare"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="6dp"
+        android:text="COURSE TITLE"
+        android:textStyle="bold"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/courseGradeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/courseTitleText"
+        android:layout_marginRight="20dp"
+        android:text="100%"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="55 ASSIGNMENTS LEFT"
+        android:textColor="@color/md_white"
+        android:layout_alignTop="@+id/courseTitleText"
+        android:layout_alignLeft="@+id/courseSquare"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/courseAssignmentsText"/>
+
+    <TextView
+        android:id="@+id/courseDueDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/courseAssignmentsText"
+        android:layout_marginRight="20dp"
+        android:text="NOV 26th"
+        android:textColor="@color/md_white"
+        android:textStyle="italic" />
+
+</RelativeLayout>
