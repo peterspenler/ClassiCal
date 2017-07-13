@@ -10,10 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by peter on 7/13/17.
@@ -22,6 +23,8 @@ import java.util.List;
 public class CourseAssignmentsFragment extends Fragment {
     private static final String TAG = "CourseAssignmentsFragment";
     private Course currentCourse;
+    SimpleDateFormat sdf;
+    SimpleDateFormat stf;
 
     @Nullable
     @Override
@@ -30,6 +33,8 @@ public class CourseAssignmentsFragment extends Fragment {
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(container.getContext());
         rv.setLayoutManager(llm);
+        sdf = new SimpleDateFormat("EEE MMM d", Locale.US);
+        stf = new SimpleDateFormat("h:mm a", Locale.US);
 
         currentCourse = getArguments().getParcelable("course");
 
@@ -69,7 +74,7 @@ public class CourseAssignmentsFragment extends Fragment {
                 assignmentValue = (TextView) itemView.findViewById(R.id.assignmentValueText);
                 assignmentDue = (TextView) itemView.findViewById(R.id.assignmentDueDateText);
 
-                itemView.setOnClickListener(new View.OnClickListener(){
+               /* itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
                         Bundle bundle = new Bundle();
@@ -80,11 +85,11 @@ public class CourseAssignmentsFragment extends Fragment {
 
                         startActivity(intent);
                     }
-                });
+                });*/
             }
         }
         public CourseAssignmentsFragment.RVAdapter.AssignmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_layout, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.assignment_layout, parent, false);
             CourseAssignmentsFragment.RVAdapter.AssignmentViewHolder cvh = new CourseAssignmentsFragment.RVAdapter.AssignmentViewHolder(v);
             return cvh;
         }
@@ -94,7 +99,7 @@ public class CourseAssignmentsFragment extends Fragment {
             holder.currentAssignment = assignments.get(position);
             holder.assignmentName.setText(assignments.get(position).getName());
             holder.assignmentValue.setText(String.valueOf(assignments.get(position).getWeight()) + "%");
-            holder.assignmentDue.setText(""+assignments.get(position).getDueDate());
+            holder.assignmentDue.setText("Due: " + sdf.format(assignments.get(position).getDueDate()) + " at " + stf.format(assignments.get(position).getDueDate()));
         }
 
         @Override

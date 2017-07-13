@@ -15,42 +15,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:text="ASSIGNMENT TITLE"
         android:textStyle="bold"
         android:textColor="@color/md_white"/>
 
     <TextView
-        android:id="@+id/assignmentDueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/assignmentTitleText"
-        android:layout_marginRight="20dp"
-        android:text="Due"
-        android:textColor="@color/md_white"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WORTH 100%"
+        android:text="Due Whenever"
         android:textColor="@color/md_white"
         android:layout_alignTop="@+id/assignmentTitleText"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/assignmentValueText"/>
+        android:id="@+id/assignmentDueDateText"/>
 
     <TextView
-        android:id="@+id/assignmentDueDateText"
+        android:id="@+id/assignmentValueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/assignmentValueText"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
-        android:text="NOV 26th"
+        android:text="13.5%"
         android:textColor="@color/md_white"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:textSize="20dp"/>
 
 </RelativeLayout>

@@ -54,7 +54,7 @@ public class Course implements Parcelable {
 
     public void addAssignment (String name, int weight, Date dueDate, String course, int color){
         assignments.add(new Assignment(name, weight, dueDate, course, color));
-        Log.d("Adding Assignment", assignments.get(assignments.size()).getName());
+        Log.d("Adding Assignment", assignments.get(assignments.size() - 1).getName());
     }
     public void addLecture(Date start, Date end, Color color){
         lectures.add(new Lecture(start, end, color));
@@ -83,9 +83,9 @@ public class Course implements Parcelable {
         this.color = in.readInt();
         this.weight = in.readDouble();
         this.grade = in.readDouble();
-        this.assignments = new ArrayList<Assignment>();
+        this.assignments = new ArrayList<>();
         in.readList(this.assignments, Assignment.class.getClassLoader());
-        this.lectures = new ArrayList<Lecture>();
+        this.lectures = new ArrayList<>();
         in.readList(this.lectures, Lecture.class.getClassLoader());
     }
 
