@@ -3,6 +3,7 @@ package com.spenler.peter.classmanager;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,8 +52,9 @@ public class Course implements Parcelable {
 
     public ArrayList<Lecture> getLectures(){return (ArrayList<Lecture>) lectures.clone();}
 
-    public void addAssignment (String name, int weight, Date dueDate, int course, Color color){
-        assignments.add(new Assignment(name, weight, dueDate, assignments.size(), color));
+    public void addAssignment (String name, int weight, Date dueDate, String course, int color){
+        assignments.add(new Assignment(name, weight, dueDate, course, color));
+        Log.d("Adding Assignment", assignments.get(assignments.size()).getName());
     }
     public void addLecture(Date start, Date end, Color color){
         lectures.add(new Lecture(start, end, color));

@@ -41,6 +41,7 @@ public class AddAssignmentDialog extends DialogFragment {
     private EditText dateEdit;
     private EditText timeEdit;
     private Calendar calendar;
+    private Course currentCourse;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -49,14 +50,14 @@ public class AddAssignmentDialog extends DialogFragment {
 
         inflater = getActivity().getLayoutInflater();
         dialogView = inflater.inflate(R.layout.dialog_add_assignment, null);
-        nameEdit = (EditText) dialogView.findViewById(R.id.nameDialog);
-        worthEdit = (EditText) dialogView.findViewById(R.id.WeightDialog);
+        nameEdit = (EditText) dialogView.findViewById(R.id.assignmentNameDialog);
+        worthEdit = (EditText) dialogView.findViewById(R.id.assignmentWorthDialog);
         courseSpinner = (Spinner) dialogView.findViewById(R.id.assignmentCourseSpinner);
         dateEdit = (EditText) dialogView.findViewById(R.id.assignmentDueDateText);
         timeEdit = (EditText) dialogView.findViewById(R.id.assignmentDueTimeText);
         calendar = Calendar.getInstance();
 
-        Course currentCourse = getArguments().getParcelable("course");
+        currentCourse = getArguments().getParcelable("course");
         List<String> courseNames = new ArrayList<String>();
         final ArrayList<Course> courses = CoreManager.getCourses();
 
@@ -122,7 +123,7 @@ public class AddAssignmentDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         try {
-                            CoreManager.addCourse(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), 0);
+                            currentCourse.addAssignment(nameEdit.getText().toString(), Integer.parseInt(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
                         }
                         catch(Exception e){
                             Toast.makeText(dialogView.getContext() ,"All values must be filled", Toast.LENGTH_SHORT).show();
