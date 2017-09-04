@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  * Created by peter on 5/10/17.
  */
 
-public class Assignment implements Parcelable {
+public class Assignment implements Serializable {
 
     private String name, course;
     private int color;
@@ -42,7 +43,7 @@ public class Assignment implements Parcelable {
     public Date getDueDate(){
         return dueDate;
     }
-
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -79,4 +80,5 @@ public class Assignment implements Parcelable {
             return new Assignment[size];
         }
     };
+    */
 }

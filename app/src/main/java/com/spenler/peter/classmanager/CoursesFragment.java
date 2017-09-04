@@ -70,8 +70,8 @@ public class CoursesFragment extends Fragment {
                     @Override
                     public void onClick(View view){
                         Bundle bundle = new Bundle();
-                        bundle.putParcelable("course",courses.get(getAdapterPosition()));
-
+                        //bundle.putParcelable("course",courses.get(getAdapterPosition()));
+                        CoreManager.currentCourse = courses.get(getAdapterPosition());
                         Intent intent = new Intent(itemView.getContext(), CourseViewActivity.class);
                         intent.putExtras(bundle);
 

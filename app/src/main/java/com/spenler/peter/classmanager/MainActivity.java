@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
 
+        Log.d("SAVE DEBUGGING", "OnCreate called");
+        CoreManager.loadData();
+
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
@@ -38,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
         /*//
         CoreManager.addCourse("Chemistry", 0.5, R.color.md_amber_800);
         CoreManager.addCourse("Anthropology", 0.5, R.color.md_blue_600);
@@ -105,11 +107,20 @@ public class MainActivity extends AppCompatActivity {
     public void onPause(){
         super.onPause();
         CoreManager.saveData();
+        Log.d("SAVE DEBUGGING", "OnPause called");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        CoreManager.saveData();
+        Log.d("SAVE DEBUGGING", "OnDestroy called");
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        CoreManager.loadData();
+       // CoreManager.loadData();
+       // Log.d("SAVE DEBUGGING", "OnResume called");
     }
 }

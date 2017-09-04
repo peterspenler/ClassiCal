@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by peter on 5/10/17.
  */
 
-public class Course implements Parcelable {
+public class Course implements Serializable{
 
     private String name;
     private int id, color;
@@ -59,7 +60,7 @@ public class Course implements Parcelable {
     public void addLecture(Date start, Date end, Color color){
         lectures.add(new Lecture(start, end, color));
     }
-
+/*
 
     @Override
     public int describeContents() {
@@ -100,5 +101,5 @@ public class Course implements Parcelable {
             return new Course[size];
         }
     };
-
+*/
 }

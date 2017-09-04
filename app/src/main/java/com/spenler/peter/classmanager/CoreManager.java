@@ -18,6 +18,7 @@ import java.util.Set;
 public class CoreManager {
     static ArrayList<Course> courses = new ArrayList<>();
     static HashMap<String, Integer> courseMap = new HashMap<>();
+    static Course currentCourse;
 
     public static void addCourse(String name, double weight, int color){
         try {
@@ -48,12 +49,16 @@ public class CoreManager {
     }
 
     public static int saveData(){
-        FileOutputStream fos;
+        FileOutputStream dfos, hfos; //Data and HashMap File Output Streams respectively
         try{
-            fos = MainActivity.context.openFileOutput("CourseData", MainActivity.context.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(courses);
-            oos.close();
+            dfos = MainActivity.context.openFileOutput("CourseData", MainActivity.context.MODE_PRIVATE);
+            hfos = MainActivity.context.openFileOutput("HashData", MainActivity.context.MODE_PRIVATE);
+            ObjectOutputStream doos = new ObjectOutputStream(dfos);
+            ObjectOutputStream hoos = new ObjectOutputStream(hfos);
+            doos.writeObject(courses);
+            doos.close();
+            hoos.writeObject(courseMap);
+            hoos.close();
             return 0;
         }
         catch(Exception e){
@@ -62,12 +67,17 @@ public class CoreManager {
         }
     }
     public static int loadData(){
-        FileInputStream fis;
+        FileInputStream dfis, hfis; //Data and HashMap File Input Streams respectively
         try {
-            fis = MainActivity.context.openFileInput("CourseData");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<Course> loadCourses = (ArrayList<Course>) ois.readObject();
-            ois.close();
+            dfis = MainActivity.context.openFileInput("CourseData");
+            hfis = MainActivity.context.openFileInput("HashData");
+            ObjectInputStream dois = new ObjectInputStream(dfis);
+            courses = (ArrayList<Course>) dois.readObject();
+            dois.close();
+            ObjectInputStream hois = new ObjectInputStream(hfis);
+            courseMap = (HashMap<String, Integer>) hois.readObject();
+            hois.close();
+            Log.d("Num loaded Courses", Integer.toString(courses.size()));
         }
         catch(Exception e){
             e.printStackTrace();

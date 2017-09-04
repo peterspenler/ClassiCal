@@ -50,7 +50,7 @@ public class CourseViewActivity extends AppCompatActivity{
         setContentView(R.layout.activity_course_view);
         Bundle bundle = getIntent().getExtras();
         activity = this;
-        course = bundle.getParcelable("course");
+        course = CoreManager.currentCourse;
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -77,8 +77,8 @@ public class CourseViewActivity extends AppCompatActivity{
 
     public void addItem(View view){
         Bundle bundle = new Bundle();
-        bundle.putParcelable("course",course);
-
+        //bundle.putParcelable("course",course);
+        //CoreManager.currentCourse = course;
         final AddAssignmentDialog addAssignmentDialog = new AddAssignmentDialog();
         addAssignmentDialog.setArguments(bundle);
 

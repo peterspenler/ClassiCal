@@ -36,7 +36,7 @@ public class CourseAssignmentsFragment extends Fragment {
         sdf = new SimpleDateFormat("EEE MMM d", Locale.US);
         stf = new SimpleDateFormat("h:mm a", Locale.US);
 
-        currentCourse = getArguments().getParcelable("course");
+        currentCourse = CoreManager.currentCourse;
 
         CourseAssignmentsFragment.RVAdapter adapter = new CourseAssignmentsFragment.RVAdapter(currentCourse.getAssignments());
         rv.setAdapter(adapter);
@@ -47,7 +47,8 @@ public class CourseAssignmentsFragment extends Fragment {
     public static CourseAssignmentsFragment newInstance (Course course){
         CourseAssignmentsFragment caf = new CourseAssignmentsFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("course",course);
+        CoreManager.currentCourse = course;
+        //bundle.putParcelable("course",course);
         caf.setArguments(bundle);
         return caf;
     }
