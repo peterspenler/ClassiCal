@@ -22,12 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
-    public Context context = this;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -98,5 +99,17 @@ public class MainActivity extends AppCompatActivity {
         final AddCourseDialog addCourseDialog = new AddCourseDialog();
 
         addCourseDialog.show(getFragmentManager(), "Add Course Dialog");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        CoreManager.saveData();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        CoreManager.loadData();
     }
 }

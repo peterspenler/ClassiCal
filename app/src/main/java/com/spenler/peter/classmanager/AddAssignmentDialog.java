@@ -124,7 +124,7 @@ public class AddAssignmentDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
                             int courseIndex = CoreManager.courseIndex(courseSpinner.getSelectedItem().toString());
-                            CoreManager.getCourses().get(courseIndex).addAssignment(nameEdit.getText().toString(), Integer.parseInt(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
+                            CoreManager.getCourses().get(courseIndex).addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
                         }
                         catch(Exception e){
                             Toast.makeText(dialogView.getContext() ,"All values must be filled!!!!", Toast.LENGTH_SHORT).show();

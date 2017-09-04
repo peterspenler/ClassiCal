@@ -14,10 +14,11 @@ import java.util.Date;
 public class Assignment implements Parcelable {
 
     private String name, course;
-    private int weight, mark, color;
+    private int color;
+    private float weight, mark;
     private Date dueDate;
 
-    public Assignment(String name, int weight, Date dueDate, String course, int color){
+    public Assignment(String name, float weight, Date dueDate, String course, int color){
         this.name = name;
         this.weight = weight;
         this.dueDate = dueDate;
@@ -34,7 +35,7 @@ public class Assignment implements Parcelable {
         return name;
     }
 
-    public int getWeight(){
+    public float getWeight(){
         return weight;
     }
 
@@ -51,8 +52,8 @@ public class Assignment implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeString(this.course);
-        dest.writeInt(this.weight);
-        dest.writeInt(this.mark);
+        dest.writeFloat(this.weight);
+        dest.writeFloat(this.mark);
         dest.writeInt(this.color);
         dest.writeLong(this.dueDate != null ? this.dueDate.getTime() : -1);
     }
@@ -60,7 +61,7 @@ public class Assignment implements Parcelable {
     protected Assignment(Parcel in) {
         this.name = in.readString();
         this.course = in.readString();
-        this.weight = in.readInt();
+        this.weight = in.readFloat();
         this.mark = in.readInt();
         this.color = in.readInt();
         long tmpDueDate = in.readLong();

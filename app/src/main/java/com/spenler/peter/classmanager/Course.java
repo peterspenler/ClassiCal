@@ -52,7 +52,7 @@ public class Course implements Parcelable {
 
     public ArrayList<Lecture> getLectures(){return (ArrayList<Lecture>) lectures.clone();}
 
-    public void addAssignment (String name, int weight, Date dueDate, String course, int color){
+    public void addAssignment (String name, float weight, Date dueDate, String course, int color){
         assignments.add(new Assignment(name, weight, dueDate, course, color));
         Log.d("Adding Assignment", assignments.get(assignments.size() - 1).getName());
     }
@@ -100,4 +100,5 @@ public class Course implements Parcelable {
             return new Course[size];
         }
     };
+
 }
