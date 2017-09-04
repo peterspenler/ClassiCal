@@ -81,6 +81,17 @@ public class CourseViewActivity extends AppCompatActivity{
         //CoreManager.currentCourse = course;
         final AddAssignmentDialog addAssignmentDialog = new AddAssignmentDialog();
         addAssignmentDialog.setArguments(bundle);
+        int page = mViewPager.getCurrentItem();
+
+        if(page == 0){
+            Log.d("CURRENT PAGE", "Assignments");
+        }
+        if(page == 1){
+            Log.d("CURRENT PAGE", "Tests");
+        }
+        if(page == 2){
+            Log.d("CURRENT PAGE", "Classes");
+        }
 
         addAssignmentDialog.show(getFragmentManager(), "Add Course Dialog");
     }

@@ -1,7 +1,6 @@
 package com.spenler.peter.classmanager;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -38,28 +37,14 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(mViewPager);
         this.getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.md_green_700));
 
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        /*//
-        CoreManager.addCourse("Chemistry", 0.5, R.color.md_amber_800);
-        CoreManager.addCourse("Anthropology", 0.5, R.color.md_blue_600);
-        CoreManager.addCourse("Math", 0.5, R.color.md_amber_800);
-        CoreManager.addCourse("MicroBiology", 0.5, R.color.md_blue_600);
-        CoreManager.addCourse("Calculus I", 0.5, R.color.md_amber_800);
-        CoreManager.addCourse("Computer Organization", 0.5, R.color.md_blue_600);
-        CoreManager.addCourse("Programming II", 0.5, R.color.md_amber_800);
-        CoreManager.addCourse("Engineering Design", 0.5, R.color.md_blue_600);
-        CoreManager.addCourse("Computer Organization", 0.5, R.color.md_blue_600);
-        CoreManager.addCourse("Programming II", 0.5, R.color.md_amber_800);
-        CoreManager.addCourse("Engineering Design", 0.5, R.color.md_blue_600);
-        //*/
     }
 
     private void setupViewPager (ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new CoursesFragment(), "Courses");
-        adapter.addFragment(new Tab2Fragment(), "Assignments");
+        adapter.addFragment(new AssignmentFragment(), "Assignments");
         viewPager.setAdapter(adapter);
     }
 
@@ -98,9 +83,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addItem(View view){
-        final AddCourseDialog addCourseDialog = new AddCourseDialog();
-
-        addCourseDialog.show(getFragmentManager(), "Add Course Dialog");
+        int page = mViewPager.getCurrentItem();
+        if(page == 0){
+            final AddCourseDialog addCourseDialog = new AddCourseDialog();
+            addCourseDialog.show(getFragmentManager(), "Add Course Dialog");
+        }
+        if(page == 1){
+            final AddAssignmentDialog addAssignmentDialog = new AddAssignmentDialog();
+            CoreManager.currentCourse = CoreManager.courses.get(0);
+            addAssignmentDialog.show(getFragmentManager(), "Add Assignment Dialog");
+        }
     }
 
     @Override
