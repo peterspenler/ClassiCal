@@ -160,6 +160,8 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
 
     @Override
     public void onDismiss(final DialogInterface dialog) {
+        int currentPosition = mViewPager.getCurrentItem();
         setupViewPager(mViewPager);
+        mViewPager.setCurrentItem(currentPosition);
     }
 }

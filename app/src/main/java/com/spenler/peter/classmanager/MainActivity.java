@@ -106,25 +106,24 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     public void onPause(){
         super.onPause();
         CoreManager.saveData();
-        Log.d("SAVE DEBUGGING", "OnPause called");
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
         CoreManager.saveData();
-        Log.d("SAVE DEBUGGING", "OnDestroy called");
     }
 
     @Override
     public void onResume(){
         super.onResume();
         setupViewPager(mViewPager);
-        Log.d("SAVE DEBUGGING", "OnResume called");
     }
 
     @Override
     public void onDismiss(final DialogInterface dialog) {
+        int currentPosition = mViewPager.getCurrentItem();
         setupViewPager(mViewPager);
+        mViewPager.setCurrentItem(currentPosition);
     }
 }
