@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/assignmentViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:text="For: TheCourse It's for"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/assignmentViewDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Due Wed Sept 28, 2017"
+        android:layout_below="@+id/assignmentViewName"
+        android:layout_alignStart="@+id/assignmentViewName"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/assignmentViewDueIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Due in 5 days"
+        android:layout_below="@+id/assignmentViewDueDate"
+        android:layout_alignStart="@+id/assignmentViewName"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/assignmentViewWorthTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/assignmentViewName"
+        android:layout_marginEnd="20dp"
+        android:text="Worth"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/assignmentViewWorth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/assignmentViewWorthTitle"
+        android:layout_alignTop="@+id/assignmentViewWorthTitle"
+        android:layout_marginTop="20dp"
+        android:text="28.0%"
+        android:textSize="20dp"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/assignmentViewMarkTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/assignmentViewWorth"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:text="Predicted Mark"
+        android:textColor="@color/md_white"/>
+
+    <TextView
+        android:id="@+id/assignmentViewMark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/assignmentViewMarkTitle"
+        android:layout_alignTop="@+id/assignmentViewMarkTitle"
+        android:layout_marginTop="20dp"
+        android:text="28.0%"
+        android:textSize="20dp"
+        android:textColor="@color/md_white"/>
+
+    <Button
+        android:id="@+id/assignmentCompletedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Completed" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/assignmentCompletedButton"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:id="@+id/assignmentEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="Edit" />
+        <Button
+            android:id="@+id/assignmentDeleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="Delete" />
+        <Button
+            android:id="@+id/assignmentMarkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="Mark" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

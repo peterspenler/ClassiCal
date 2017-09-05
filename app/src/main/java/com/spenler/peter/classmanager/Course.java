@@ -7,13 +7,14 @@ import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 /**
  * Created by peter on 5/10/17.
  */
 
-public class Course implements Serializable{
+public class Course implements Serializable, Comparable<Course>{
 
     private String name;
     private int id, color;
@@ -55,11 +56,23 @@ public class Course implements Serializable{
 
     public void addAssignment (String name, float weight, Date dueDate, String course, int color){
         assignments.add(new Assignment(name, weight, dueDate, course, color));
+        Collections.sort(assignments);
         Log.d("Adding Assignment", assignments.get(assignments.size() - 1).getName());
     }
     public void addLecture(Date start, Date end, Color color){
         lectures.add(new Lecture(start, end, color));
     }
+
+    @Override
+    public int compareTo(Course other){
+        if(getName().compareTo(other.getName()) > 0)
+            return 1;
+        else if(getName().compareTo(other.getName()) < 0)
+            return -1;
+        else
+            return 0;
+    }
+
 /*
 
     @Override

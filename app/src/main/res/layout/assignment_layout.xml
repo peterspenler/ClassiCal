@@ -33,11 +33,24 @@
         android:id="@+id/assignmentDueDateText"/>
 
     <TextView
+        android:id="@+id/assignmentValueTitleTextText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/assignmentValueText"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="20dp"
+        android:text="Worth"
+        android:textColor="@color/md_white"
+        android:textStyle="italic"
+        android:textSize="14dp"/>
+
+    <TextView
         android:id="@+id/assignmentValueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp"
+        android:layout_alignTop="@+id/assignmentValueTitleTextText"
+        android:layout_marginTop="18dp"
         android:layout_marginRight="20dp"
         android:text="13.5%"
         android:textColor="@color/md_white"

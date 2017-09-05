@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -17,13 +18,14 @@ import java.util.Set;
 
 public class CoreManager {
     static ArrayList<Course> courses = new ArrayList<>();
-    static HashMap<String, Integer> courseMap = new HashMap<>();
+    static HashMap<String, Course> courseMap = new HashMap<>();
     static Course currentCourse;
+    static Assignment currentAssignment;
 
     public static void addCourse(String name, double weight, int color){
         try {
-            courseMap.put(name, courses.size());
             courses.add(new Course(name, weight, color, courses.size()));
+            courseMap.put(name, courses.get(courses.size()));
         }
         catch(Exception e){
             Log.e("CoreManager/addCourse", "Course Could not be Added");
@@ -36,7 +38,15 @@ public class CoreManager {
 
     public static int getCourseNum(){return courses.size();}
 
-    public static Integer courseIndex(String name){return courseMap.get(name);}
+    public static int courseIndexByName(String name){
+        for(int i = 0; i < courses.size(); i++){
+            if(courses.get(i).getName().equals(name))
+                return i;
+        }
+        return -1;
+    }
+
+    public static Course getCourseByName(String name){return courseMap.get(name);}
 
     public static int darkenColor(int color, float amount){
         float[] hsv = new float[3];
@@ -75,7 +85,7 @@ public class CoreManager {
             courses = (ArrayList<Course>) dois.readObject();
             dois.close();
             ObjectInputStream hois = new ObjectInputStream(hfis);
-            courseMap = (HashMap<String, Integer>) hois.readObject();
+            courseMap = (HashMap<String, Course>) hois.readObject();
             hois.close();
             Log.d("Num loaded Courses", Integer.toString(courses.size()));
         }
@@ -83,5 +93,9 @@ public class CoreManager {
             e.printStackTrace();
         }
         return 1;
+    }
+
+    public static void sortCourses(){
+        Collections.sort(courses);
     }
 }

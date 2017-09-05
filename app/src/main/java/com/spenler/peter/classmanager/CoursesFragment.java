@@ -31,6 +31,7 @@ public class CoursesFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(container.getContext());
         rv.setLayoutManager(llm);
 
+        CoreManager.sortCourses();
         RVAdapter adapter = new RVAdapter(CoreManager.getCourses());
         rv.setAdapter(adapter);
 

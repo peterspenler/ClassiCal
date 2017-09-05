@@ -1,5 +1,6 @@
 package com.spenler.peter.classmanager;
 
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,6 +49,7 @@ public class AssignmentFragment extends Fragment {
                 assignments.addAll(course.getAssignments());
             }
         }
+        Collections.sort(assignments);
 
         AssignmentFragment.RVAdapter adapter = new AssignmentFragment.RVAdapter(assignments);
         rv.setAdapter(adapter);
@@ -86,18 +90,13 @@ public class AssignmentFragment extends Fragment {
                 assignmentDue = (TextView) itemView.findViewById(R.id.assignmentDueDateText);
                 iv = itemView;
 
-               /* itemView.setOnClickListener(new View.OnClickListener(){
+               itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("assignment",assignments.get(getAdapterPosition()));
-
-                        Intent intent = new Intent(itemView.getContext(), CourseViewActivity.class);
-                        intent.putExtras(bundle);
-
-                        startActivity(intent);
+                        CoreManager.currentAssignment = assignments.get(getAdapterPosition());
+                        startActivity(new Intent(itemView.getContext(), AssignmentViewActivity.class));
                     }
-                });*/
+                });
             }
         }
         public AssignmentFragment.RVAdapter.AssignmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

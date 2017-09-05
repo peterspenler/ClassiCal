@@ -75,18 +75,13 @@ public class CourseAssignmentsFragment extends Fragment {
                 assignmentValue = (TextView) itemView.findViewById(R.id.assignmentValueText);
                 assignmentDue = (TextView) itemView.findViewById(R.id.assignmentDueDateText);
 
-               /* itemView.setOnClickListener(new View.OnClickListener(){
+                itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("assignment",assignments.get(getAdapterPosition()));
-
-                        Intent intent = new Intent(itemView.getContext(), CourseViewActivity.class);
-                        intent.putExtras(bundle);
-
-                        startActivity(intent);
+                        CoreManager.currentAssignment = assignments.get(getAdapterPosition());
+                        startActivity(new Intent(itemView.getContext(), AssignmentViewActivity.class));
                     }
-                });*/
+                });
             }
         }
         public CourseAssignmentsFragment.RVAdapter.AssignmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -12,12 +12,13 @@ import java.util.Date;
  * Created by peter on 5/10/17.
  */
 
-public class Assignment implements Serializable {
+public class Assignment implements Serializable, Comparable<Assignment>{
 
     private String name, course;
     private int color;
     private float weight, mark;
     private Date dueDate;
+    private boolean finished;
 
     public Assignment(String name, float weight, Date dueDate, String course, int color){
         this.name = name;
@@ -47,6 +48,8 @@ public class Assignment implements Serializable {
     public String getCourseName() {return course;}
 
     public int getColor() {return color;}
+
+    public boolean isFinished() {return finished;}
 
     /*
     @Override
@@ -86,4 +89,14 @@ public class Assignment implements Serializable {
         }
     };
     */
+
+    @Override
+    public int compareTo(Assignment other){
+        if(getDueDate().compareTo(other.getDueDate()) > 0)
+           return 1;
+        else if(getDueDate().compareTo(other.getDueDate()) < 0)
+            return -1;
+        else
+            return 0;
+    }
 }

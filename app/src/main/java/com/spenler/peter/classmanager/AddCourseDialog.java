@@ -1,5 +1,6 @@
 package com.spenler.peter.classmanager;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -69,7 +70,7 @@ public class AddCourseDialog extends DialogFragment{
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         try {
-                            if(CoreManager.courseIndex(nameEdit.getText().toString()) == null){
+                            if(CoreManager.getCourseByName(nameEdit.getText().toString()) == null){
                                 if(weightEdit.getText().toString().equals(""))
                                     CoreManager.addCourse(nameEdit.getText().toString(), 0.5, mSelectedColor);
                                 else
@@ -99,5 +100,14 @@ public class AddCourseDialog extends DialogFragment{
         dialog.setArguments(bundle);
 
         return dialog;
+    }
+
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        super.onDismiss(dialog);
+        final Activity activity = getActivity();
+        if (activity instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
+        }
     }
 }

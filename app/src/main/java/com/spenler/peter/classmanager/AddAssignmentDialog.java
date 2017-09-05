@@ -72,7 +72,7 @@ public class AddAssignmentDialog extends DialogFragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseSpinner.setAdapter(dataAdapter);
         Log.d("COURSE TITLE", CoreManager.currentCourse.getName());
-        courseSpinner.setSelection(CoreManager.courseIndex(CoreManager.currentCourse.getName()));
+        courseSpinner.setSelection(CoreManager.courseIndexByName(CoreManager.currentCourse.getName()));
 
         //Initialize time and date to current time and date
         calendar.setTime(new Date());
@@ -126,7 +126,7 @@ public class AddAssignmentDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         try {
-                            int courseIndex = CoreManager.courseIndex(courseSpinner.getSelectedItem().toString());
+                            int courseIndex = CoreManager.courseIndexByName(courseSpinner.getSelectedItem().toString());
                             currentCourse = CoreManager.getCourses().get(courseIndex);
                             currentCourse.addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
                         }
