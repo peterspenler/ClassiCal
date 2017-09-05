@@ -1,6 +1,8 @@
 package com.spenler.peter.classmanager;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +19,12 @@ import java.util.List;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener{
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
+    private CoursesFragment coursesFragment;
+    private AssignmentFragment assignmentFragment;
     public static Context context;
 
     @Override
@@ -31,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("SAVE DEBUGGING", "OnCreate called");
         CoreManager.loadData();
+
+        coursesFragment = new CoursesFragment();
+        assignmentFragment = new AssignmentFragment();
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -43,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager (ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CoursesFragment(), "Courses");
-        adapter.addFragment(new AssignmentFragment(), "Assignments");
+        adapter.addFragment(coursesFragment, "Courses");
+        adapter.addFragment(assignmentFragment, "Assignments");
         viewPager.setAdapter(adapter);
     }
 
@@ -112,7 +119,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-       // CoreManager.loadData();
-       // Log.d("SAVE DEBUGGING", "OnResume called");
+        setupViewPager(mViewPager);
+        Log.d("SAVE DEBUGGING", "OnResume called");
+    }
+
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        setupViewPager(mViewPager);
     }
 }

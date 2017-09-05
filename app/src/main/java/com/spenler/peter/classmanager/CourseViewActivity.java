@@ -2,6 +2,7 @@ package com.spenler.peter.classmanager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -35,7 +37,7 @@ import java.util.List;
  * Created by peter on 5/31/17.
  */
 
-public class CourseViewActivity extends AppCompatActivity{
+public class CourseViewActivity extends AppCompatActivity implements DialogInterface.OnDismissListener{
     public static Activity activity;
     public static View view;
     private static Course course;
@@ -79,6 +81,7 @@ public class CourseViewActivity extends AppCompatActivity{
         Bundle bundle = new Bundle();
         //bundle.putParcelable("course",course);
         //CoreManager.currentCourse = course;
+
         final AddAssignmentDialog addAssignmentDialog = new AddAssignmentDialog();
         addAssignmentDialog.setArguments(bundle);
         int page = mViewPager.getCurrentItem();
@@ -93,7 +96,7 @@ public class CourseViewActivity extends AppCompatActivity{
             Log.d("CURRENT PAGE", "Classes");
         }
 
-        addAssignmentDialog.show(getFragmentManager(), "Add Course Dialog");
+        addAssignmentDialog.show(getFragmentManager(), "Add Assignment Dialog");
     }
 
     private void setupViewPager (ViewPager viewPager){
@@ -146,5 +149,17 @@ public class CourseViewActivity extends AppCompatActivity{
         public int getCount() {
             return mFragmentList.size();
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setupViewPager(mViewPager);
+        Log.d("SAVE DEBUGGING", "OnResume called");
+    }
+
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        setupViewPager(mViewPager);
     }
 }

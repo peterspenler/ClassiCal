@@ -43,7 +43,12 @@ public class Assignment implements Serializable {
     public Date getDueDate(){
         return dueDate;
     }
-/*
+
+    public String getCourseName() {return course;}
+
+    public int getColor() {return color;}
+
+    /*
     @Override
     public int describeContents() {
         return 0;

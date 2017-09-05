@@ -1,5 +1,6 @@
 package com.spenler.peter.classmanager;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -126,7 +127,8 @@ public class AddAssignmentDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
                             int courseIndex = CoreManager.courseIndex(courseSpinner.getSelectedItem().toString());
-                            CoreManager.getCourses().get(courseIndex).addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
+                            currentCourse = CoreManager.getCourses().get(courseIndex);
+                            currentCourse.addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
                         }
                         catch(Exception e){
                             Toast.makeText(dialogView.getContext() ,"All values must be filled!!!!", Toast.LENGTH_SHORT).show();
@@ -165,4 +167,12 @@ public class AddAssignmentDialog extends DialogFragment {
         timeEdit.setText(sdf.format(calendar.getTime()));
     }
 
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        super.onDismiss(dialog);
+        final Activity activity = getActivity();
+        if (activity instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
+        }
+    }
 }

@@ -1,8 +1,10 @@
 package com.spenler.peter.classmanager;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +40,7 @@ public class AssignmentFragment extends Fragment {
         stf = new SimpleDateFormat("h:mm a", Locale.US);
         assignments = new ArrayList<>();
 
-        for(int i=0; i < (CoreManager.courses.size() - 1);i++){
+        for(int i=0; i < CoreManager.courses.size();i++){
             Course course = CoreManager.courses.get(i);
             if(course.getAssignments() != null) {
                 assignments.addAll(course.getAssignments());
@@ -74,6 +76,7 @@ public class AssignmentFragment extends Fragment {
             TextView assignmentValue;
             TextView assignmentDue;
             Assignment currentAssignment;
+            View iv;
 
             public AssignmentViewHolder(final View itemView) {
                 super(itemView);
@@ -81,6 +84,7 @@ public class AssignmentFragment extends Fragment {
                 assignmentName = (TextView) itemView.findViewById(R.id.assignmentTitleText);
                 assignmentValue = (TextView) itemView.findViewById(R.id.assignmentValueText);
                 assignmentDue = (TextView) itemView.findViewById(R.id.assignmentDueDateText);
+                iv = itemView;
 
                /* itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -108,6 +112,9 @@ public class AssignmentFragment extends Fragment {
             holder.assignmentName.setText(assignments.get(position).getName());
             holder.assignmentValue.setText(String.valueOf(assignments.get(position).getWeight()) + "%");
             holder.assignmentDue.setText("Due: " + sdf.format(assignments.get(position).getDueDate()) + " at " + stf.format(assignments.get(position).getDueDate()));
+           // ArrayList<Course> DEBUG = CoreManager.courses;
+            //int color = CoreManager.courses.get(CoreManager.courseIndex(assignments.get(position).getCourseName())).getColor();
+            holder.iv.setBackgroundColor(assignments.get(position).getColor());
         }
 
         @Override
