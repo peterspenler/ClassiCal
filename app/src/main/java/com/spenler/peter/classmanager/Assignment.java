@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by peter on 5/10/17.
  */
 
-public class Assignment implements Serializable, Comparable<Assignment>{
+ class Assignment implements Serializable, Comparable<Assignment>{
 
     private String name, course;
     private int color;
@@ -20,12 +20,13 @@ public class Assignment implements Serializable, Comparable<Assignment>{
     private Date dueDate;
     private boolean finished;
 
-    public Assignment(String name, float weight, Date dueDate, String course, int color){
+    Assignment(String name, float weight, Date dueDate, String course, int color){
         this.name = name;
         this.weight = weight;
         this.dueDate = dueDate;
         this.course = course;
         this.color = color;
+        this.mark = -1;
     }
 
     public int setMark(int mark){
@@ -37,11 +38,11 @@ public class Assignment implements Serializable, Comparable<Assignment>{
         return name;
     }
 
-    public float getWeight(){
+    float getWeight(){
         return weight;
     }
 
-    public Date getDueDate(){
+    Date getDueDate(){
         return dueDate;
     }
 
@@ -50,6 +51,15 @@ public class Assignment implements Serializable, Comparable<Assignment>{
     public int getColor() {return color;}
 
     public boolean isFinished() {return finished;}
+
+    public float getMark(){return mark;}
+
+    public String getMarkString(){
+        if(mark < 0)
+            return "None";
+        else
+            return String.valueOf(mark) + "%";
+    }
 
     /*
     @Override
