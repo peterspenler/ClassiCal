@@ -14,6 +14,40 @@
         android:paddingTop="@dimen/appbar_padding_top"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+        <!--<android.support.v7.widget.Toolbar
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/courseCurrentMarkText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/md_grey_300"
+                android:text="Current Mark: 34.56%"/>
+
+            <TextView
+                android:id="@+id/coursePredictedMarkText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/md_grey_300"
+                android:text="Predicted Mark: 32.56%"/>
+        </RelativeLayout>
+        <!--</android.support.v7.widget.Toolbar>-->
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
@@ -37,7 +71,8 @@
         android:clickable="true"
         android:onClick="addItem"
         app:fabSize="normal"
-        android:src="@drawable/dark_plus"/>
+        android:src="@drawable/dark_plus"
+        />
 
 </android.support.design.widget.CoordinatorLayout>
 

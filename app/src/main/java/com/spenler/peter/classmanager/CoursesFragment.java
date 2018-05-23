@@ -92,7 +92,7 @@ public class CoursesFragment extends Fragment {
         public void onBindViewHolder(CourseViewHolder holder, int position) {
             holder.currentCourse = courses.get(position);
             holder.courseName.setText(courses.get(position).getName());
-            holder.courseGrade.setText(String.valueOf(courses.get(position).getGrade()) + "%");
+            holder.courseGrade.setText(String.valueOf(CoreManager.round(courses.get(position).getGrade(), 2)) + "%");
             holder.courseChar.setText(""+courses.get(position).getChar());
             holder.courseAssignments.setText(courses.get(position).assignmentsLeft());
             holder.courseSquare.setColor(courses.get(position).getColor());

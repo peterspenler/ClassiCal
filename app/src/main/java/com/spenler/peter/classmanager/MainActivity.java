@@ -1,5 +1,6 @@
 package com.spenler.peter.classmanager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
@@ -23,12 +24,14 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     private CoursesFragment coursesFragment;
     private AssignmentFragment assignmentFragment;
     public Context context;
+    public static Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
+        activity = this;
 
         Log.d("SAVE DEBUGGING", "OnCreate called");
         CoreManager.loadData();
@@ -101,14 +104,14 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
 
     @Override
     public void onPause(){
-        super.onPause();
         CoreManager.saveData();
+        super.onPause();
     }
 
     @Override
     public void onDestroy(){
-        super.onDestroy();
         CoreManager.saveData();
+        super.onDestroy();
     }
 
     @Override

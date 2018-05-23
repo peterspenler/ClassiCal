@@ -48,13 +48,48 @@
         android:id="@+id/assignmentValueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/assignmentValueTitleTextText"
+        android:layout_alignRight="@+id/assignmentMarkText"
         android:layout_marginTop="18dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="75dp"
         android:text="13.5%"
         android:textColor="@color/md_white"
         android:textStyle="italic"
         android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/assignmentMarkTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/assignmentMarkText"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="20dp"
+        android:text="Grade"
+        android:textColor="@color/md_white"
+        android:textStyle="italic"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:id="@+id/assignmentMarkText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/assignmentMarkTitleText"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="20dp"
+        android:text="17.8%"
+        android:textColor="@color/md_white"
+        android:textStyle="italic"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/assignmentCompleteMark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:text="COMPLETE"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/md_grey_900"/>
 
 </RelativeLayout>

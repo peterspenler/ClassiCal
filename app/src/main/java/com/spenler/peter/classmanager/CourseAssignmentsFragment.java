@@ -65,7 +65,9 @@ public class CourseAssignmentsFragment extends Fragment {
             CardView cv;
             TextView assignmentName;
             TextView assignmentValue;
+            TextView assignmentMark;
             TextView assignmentDue;
+            TextView assignmentCompleteMark;
             Assignment currentAssignment;
 
             public AssignmentViewHolder(final View itemView) {
@@ -73,7 +75,9 @@ public class CourseAssignmentsFragment extends Fragment {
                 cv = (CardView) itemView.findViewById(R.id.card_view);
                 assignmentName = (TextView) itemView.findViewById(R.id.assignmentTitleText);
                 assignmentValue = (TextView) itemView.findViewById(R.id.assignmentValueText);
+                assignmentMark = (TextView) itemView.findViewById(R.id.assignmentMarkText);
                 assignmentDue = (TextView) itemView.findViewById(R.id.assignmentDueDateText);
+                assignmentCompleteMark = (TextView) itemView.findViewById(R.id.assignmentCompleteMark);
 
                 itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -94,8 +98,14 @@ public class CourseAssignmentsFragment extends Fragment {
         public void onBindViewHolder(CourseAssignmentsFragment.RVAdapter.AssignmentViewHolder holder, int position) {
             holder.currentAssignment = assignments.get(position);
             holder.assignmentName.setText(assignments.get(position).getName());
-            holder.assignmentValue.setText(String.valueOf(assignments.get(position).getWeight()) + "%");
+            holder.assignmentValue.setText(String.valueOf(CoreManager.round(assignments.get(position).getWeight(),2)) + "%");
+            holder.assignmentMark.setText(assignments.get(position).getMarkString());
             holder.assignmentDue.setText("Due: " + sdf.format(assignments.get(position).getDueDate()) + " at " + stf.format(assignments.get(position).getDueDate()));
+            if(assignments.get(position).isFinished()){
+                holder.assignmentCompleteMark.setVisibility(View.VISIBLE);
+            }else{
+                holder.assignmentCompleteMark.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

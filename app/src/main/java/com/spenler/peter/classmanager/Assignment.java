@@ -27,11 +27,16 @@ import java.util.Date;
         this.course = course;
         this.color = color;
         this.mark = -1;
+        this.finished = false;
     }
 
-    public int setMark(int mark){
-        this.mark = mark;
-        return mark;
+    public float setMark(float mark){
+        if((mark >= 0) && (mark <= 100)) {
+            this.mark = mark;
+            return mark;
+        }else{
+            return -1;
+        }
     }
 
     public String getName(){
@@ -52,13 +57,24 @@ import java.util.Date;
 
     public boolean isFinished() {return finished;}
 
+    public boolean toggleFinished(){
+        finished = !finished;
+        return finished;
+    }
+
     public float getMark(){return mark;}
 
     public String getMarkString(){
         if(mark < 0)
             return "None";
         else
-            return String.valueOf(mark) + "%";
+            return String.valueOf(CoreManager.round(mark,2)) + "%";
+    }
+
+    public boolean isMarked(){
+        if(mark < 0)
+            return false;
+        return true;
     }
 
     /*
@@ -102,6 +118,10 @@ import java.util.Date;
 
     @Override
     public int compareTo(Assignment other){
+        if(isFinished() && !other.isFinished()){
+            return -1;
+        }
+
         if(getDueDate().compareTo(other.getDueDate()) > 0)
            return 1;
         else if(getDueDate().compareTo(other.getDueDate()) < 0)

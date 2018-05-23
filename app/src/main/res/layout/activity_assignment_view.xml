@@ -86,7 +86,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
-        android:text="Completed" />
+        android:text="Completed"
+        android:onClick="completeAssignment"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -100,14 +101,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Edit" />
+            android:text="Edit"
+            android:onClick="editAssignment"/>
         <Button
             android:id="@+id/assignmentDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Delete" />
+            android:text="Delete"
+            android:onClick="deleteAssignment"/>
         <Button
             android:id="@+id/assignmentMarkButton"
             android:layout_width="wrap_content"
@@ -115,7 +118,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="Mark" />
+            android:text="Mark"
+            android:onClick="markAssignment"/>
     </LinearLayout>
 
     <ImageView
@@ -125,7 +129,9 @@
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/dark_checkmark"
         android:layout_above="@+id/linearLayout"
-        android:layout_below="@+id/assignmentViewDueIn" />
+        android:layout_below="@+id/assignmentViewDueIn"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"/>
 
 
 </RelativeLayout>

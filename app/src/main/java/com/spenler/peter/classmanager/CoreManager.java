@@ -7,10 +7,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Created by peter on 5/30/17.
@@ -58,11 +58,21 @@ public class CoreManager {
         return darkColor;
     }
 
+    public static int desaturateColor(int color, float amount){
+        float[] hsv = new float[3];
+        int darkColor;
+
+        Color.colorToHSV(color, hsv);
+        hsv[1] *= amount; // Format amount like "0.7f"
+        darkColor = Color.HSVToColor(hsv);
+        return darkColor;
+    }
+
     public static int saveData(){
         FileOutputStream dfos, hfos; //Data and HashMap File Output Streams respectively
         try{
-            dfos = MainActivity.context.openFileOutput("CourseData", MainActivity.context.MODE_PRIVATE);
-            hfos = MainActivity.context.openFileOutput("HashData", MainActivity.context.MODE_PRIVATE);
+            dfos = MainActivity.activity.openFileOutput("CourseData", MainActivity.activity.MODE_PRIVATE);
+            hfos = MainActivity.activity.openFileOutput("HashData", MainActivity.activity.MODE_PRIVATE);
             ObjectOutputStream doos = new ObjectOutputStream(dfos);
             ObjectOutputStream hoos = new ObjectOutputStream(hfos);
             doos.writeObject(courses);
@@ -79,8 +89,8 @@ public class CoreManager {
     public static int loadData(){
         FileInputStream dfis, hfis; //Data and HashMap File Input Streams respectively
         try {
-            dfis = MainActivity.context.openFileInput("CourseData");
-            hfis = MainActivity.context.openFileInput("HashData");
+            dfis = MainActivity.activity.openFileInput("CourseData");
+            hfis = MainActivity.activity.openFileInput("HashData");
             ObjectInputStream dois = new ObjectInputStream(dfis);
             courses = (ArrayList<Course>) dois.readObject();
             dois.close();
@@ -98,4 +108,27 @@ public class CoreManager {
     public static void sortCourses(){
         Collections.sort(courses);
     }
+
+    public static double round(double number, int place){
+        BigDecimal bd = new BigDecimal(Double.toString(number));
+        bd = bd.setScale(place, BigDecimal.ROUND_HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public static float round(float number, int place){
+        BigDecimal bd = new BigDecimal(Float.toString(number));
+        bd = bd.setScale(place, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
+/*
+    public static int darkenColor(int color, float factor) {
+        int a = Color.alpha(color);
+        int r = Math.round(Color.red(color) * factor);
+        int g = Math.round(Color.green(color) * factor);
+        int b = Math.round(Color.blue(color) * factor);
+        return Color.argb(a,
+                Math.min(r,255),
+                Math.min(g,255),
+                Math.min(b,255));
+    }*/
 }

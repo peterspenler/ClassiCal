@@ -38,16 +38,54 @@ public class Course implements Serializable, Comparable<Course>{
 
     public String getName(){return name;}
 
-    public double getGrade(){return grade;}
+    public double getGrade(){
+        double totalPercent = 0;
+        double totalMarks = 0;
+        for(int i = 0; i < assignments.size(); i++){
+            if(assignments.get(i).isFinished() && assignments.get(i).isMarked()){
+                totalPercent += assignments.get(i).getWeight();
+                totalMarks += assignments.get(i).getMark() * (assignments.get(i).getWeight() / 100);
+            }
+        }
+        if((totalMarks == 0) && (totalPercent == 0))
+            grade = 100;
+        else
+            grade = 100 * (totalMarks / totalPercent);
+        return grade;
+    }
+
+    public double getPredictedGrade(){
+        double totalPercent = 0;
+        double totalMarks = 0;
+        double predictedGrade = 0;
+        for(int i = 0; i < assignments.size(); i++){
+            if(assignments.get(i).isMarked()){
+                totalPercent += assignments.get(i).getWeight();
+                totalMarks += assignments.get(i).getMark() * (assignments.get(i).getWeight() / 100);
+            }
+        }
+        if((totalMarks == 0) && (totalPercent == 0))
+            predictedGrade = 100;
+        else
+            predictedGrade = 100 * (totalMarks / totalPercent);
+        return predictedGrade;
+    }
 
     public char getChar(){return Character.toUpperCase(name.charAt(0));}
 
     public ArrayList<Assignment> getAssignments(){return (ArrayList<Assignment>) assignments.clone();}
 
     public String assignmentsLeft(){
-        int size = assignments.size();
+        int size = 0;
+        for(int i = 0; i < assignments.size(); i++){
+            if(!assignments.get(i).isFinished()){
+                size++;
+            }
+        }
         if(size == 1)
             return "1 Assignment Left";
+        else if(size == 0)
+            return "No Assignments Left";
         else
             return String.valueOf(size) + " Assignments Left";
     }

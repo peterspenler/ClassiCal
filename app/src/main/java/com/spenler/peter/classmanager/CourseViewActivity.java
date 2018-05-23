@@ -3,31 +3,19 @@ package com.spenler.peter.classmanager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,6 +29,9 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
     public static Activity activity;
     public static View view;
     private static Course course;
+
+    private static TextView currentMarkView;
+    private static TextView predictedMarkView;
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
@@ -74,7 +65,15 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         tabBar.setBackgroundColor(lightColor);
         tabBarBackground.setBackgroundColor(lightColor);
 
+        currentMarkView = (TextView)findViewById(R.id.courseCurrentMarkText);
+        predictedMarkView = (TextView)findViewById(R.id.coursePredictedMarkText);
 
+        refreshGrades();
+    }
+
+    void refreshGrades(){
+        predictedMarkView.setText("Predicted Mark: " + CoreManager.round(course.getPredictedGrade(),2));
+        currentMarkView.setText("Current Mark: " + CoreManager.round(course.getGrade(), 2));
     }
 
     public void addItem(View view){
@@ -154,6 +153,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
     @Override
     public void onResume(){
         super.onResume();
+        refreshGrades();
         setupViewPager(mViewPager);
         Log.d("SAVE DEBUGGING", "OnResume called");
     }

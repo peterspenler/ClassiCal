@@ -75,7 +75,9 @@ public class AssignmentFragment extends Fragment {
             CardView cv;
             TextView assignmentName;
             TextView assignmentValue;
+            TextView assignmentMark;
             TextView assignmentDue;
+            TextView assignmentCompleteMark;
             Assignment currentAssignment;
             View iv;
 
@@ -84,7 +86,9 @@ public class AssignmentFragment extends Fragment {
                 cv = (CardView) itemView.findViewById(R.id.card_view);
                 assignmentName = (TextView) itemView.findViewById(R.id.assignmentTitleText);
                 assignmentValue = (TextView) itemView.findViewById(R.id.assignmentValueText);
+                assignmentMark = (TextView) itemView.findViewById(R.id.assignmentMarkText);
                 assignmentDue = (TextView) itemView.findViewById(R.id.assignmentDueDateText);
+                assignmentCompleteMark = (TextView) itemView.findViewById(R.id.assignmentCompleteMark);
                 iv = itemView;
 
                itemView.setOnClickListener(new View.OnClickListener(){
@@ -106,11 +110,17 @@ public class AssignmentFragment extends Fragment {
         public void onBindViewHolder(AssignmentFragment.RVAdapter.AssignmentViewHolder holder, int position) {
             holder.currentAssignment = assignments.get(position);
             holder.assignmentName.setText(assignments.get(position).getName());
-            holder.assignmentValue.setText(String.valueOf(assignments.get(position).getWeight()) + "%");
+            holder.assignmentValue.setText(String.valueOf(CoreManager.round(assignments.get(position).getWeight(),2)) + "%");
+            holder.assignmentMark.setText(assignments.get(position).getMarkString());
             holder.assignmentDue.setText("Due: " + sdf.format(assignments.get(position).getDueDate()) + " at " + stf.format(assignments.get(position).getDueDate()));
            // ArrayList<Course> DEBUG = CoreManager.courses;
             //int color = CoreManager.courses.get(CoreManager.courseIndex(assignments.get(position).getCourseName())).getColor();
             holder.iv.setBackgroundColor(assignments.get(position).getColor());
+            if(assignments.get(position).isFinished()){
+                holder.assignmentCompleteMark.setVisibility(View.VISIBLE);
+            }else {
+                holder.assignmentCompleteMark.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

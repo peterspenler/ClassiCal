@@ -28,7 +28,7 @@
         android:layout_marginTop="10dp"
         android:inputType="textCapWords"
         android:hint="Name"
-        android:textColorHint="@color/md_grey_300"
+        android:textColorHint="@color/md_grey_500"
         android:textColor="@color/md_grey_300"/>
 
     <Spinner
@@ -53,7 +53,7 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="sans-serif"
         android:hint="Worth"
-        android:textColorHint="@color/md_grey_300"
+        android:textColorHint="@color/md_grey_500"
         android:textColor="@color/md_grey_300"/>
 
     <TextView
