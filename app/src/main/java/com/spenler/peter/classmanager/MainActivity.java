@@ -2,7 +2,6 @@ package com.spenler.peter.classmanager;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,15 +16,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener{
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private CoursesFragment coursesFragment;
     private AssignmentFragment assignmentFragment;
-    public static Context context;
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         viewPager.setAdapter(adapter);
     }
 
-    public void openCalendar(){
+    public void openCalendar(View view){
         Log.i("MainActivity", "Calendar Button Pressed");
     }
 
@@ -64,12 +61,12 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public void addFragment(Fragment fragment, String title){
+        void addFragment(Fragment fragment, String title){
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
 
-        public SectionsPageAdapter(FragmentManager fm) {
+        SectionsPageAdapter(FragmentManager fm) {
             super(fm);
         }
 
