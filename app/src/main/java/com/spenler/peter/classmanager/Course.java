@@ -75,6 +75,14 @@ public class Course implements Serializable, Comparable<Course>{
 
     public ArrayList<Assignment> getAssignments(){return (ArrayList<Assignment>) assignments.clone();}
 
+    public int numAssignments(){return assignments.size();}
+
+    public Assignment getAssignment(int i){return assignments.get(i);}
+
+    public void deleteAssignment(int i){
+        assignments.remove(i);
+    }
+
     public String assignmentsLeft(){
         int size = 0;
         for(int i = 0; i < assignments.size(); i++){

@@ -17,15 +17,16 @@ import java.util.HashMap;
  */
 
 public class CoreManager {
-    static ArrayList<Course> courses = new ArrayList<>();
-    static HashMap<String, Course> courseMap = new HashMap<>();
-    static Course currentCourse;
-    static Assignment currentAssignment;
+    static private ArrayList<Course> courses = new ArrayList<>();
+    //static private HashMap<String, Course> courseMap = new HashMap<>();
+    static private Course currentCourse;
+    static private Assignment currentAssignment;
 
     public static void addCourse(String name, double weight, int color){
         try {
             courses.add(new Course(name, weight, color, courses.size()));
-            courseMap.put(name, courses.get(courses.size()));
+            saveData();
+            //courseMap.put(name, courses.get(courses.size()));
         }
         catch(Exception e){
             Log.e("CoreManager/addCourse", "Course Could not be Added");
@@ -38,6 +39,22 @@ public class CoreManager {
 
     public static int getCourseNum(){return courses.size();}
 
+    public static Assignment getCurrentAssignment() {
+        return currentAssignment;
+    }
+
+    public static Course getCurrentCourse() {
+        return currentCourse;
+    }
+
+    public static void setCurrentCourse(Course currentCourse) {
+        CoreManager.currentCourse = currentCourse;
+    }
+
+    public static void setCurrentAssignment(Assignment currentAssignment) {
+        CoreManager.currentAssignment = currentAssignment;
+    }
+
     public static int courseIndexByName(String name){
         for(int i = 0; i < courses.size(); i++){
             if(courses.get(i).getName().equals(name))
@@ -46,7 +63,17 @@ public class CoreManager {
         return -1;
     }
 
-    public static Course getCourseByName(String name){return courseMap.get(name);}
+    public static Course getCourseByName(String name){
+        for(int i = 0; i < courses.size(); i++){
+            if(courses.get(i).getName().equals(name)){
+                return courses.get(i);
+            }
+        }
+        return null;
+        //return courseMap.get(name);
+    }
+
+    public static Course getCourseByIndex(int index){return courses.get(index);}
 
     public static int darkenColor(int color, float amount){
         float[] hsv = new float[3];
@@ -71,14 +98,14 @@ public class CoreManager {
     public static int saveData(){
         FileOutputStream dfos, hfos; //Data and HashMap File Output Streams respectively
         try{
-            dfos = MainActivity.activity.openFileOutput("CourseData", MainActivity.activity.MODE_PRIVATE);
-            hfos = MainActivity.activity.openFileOutput("HashData", MainActivity.activity.MODE_PRIVATE);
+            dfos = MainActivity.activity.openFileOutput("CourseData.bin", MainActivity.activity.MODE_PRIVATE);
+            //hfos = MainActivity.activity.openFileOutput("HashData", MainActivity.activity.MODE_PRIVATE);
             ObjectOutputStream doos = new ObjectOutputStream(dfos);
-            ObjectOutputStream hoos = new ObjectOutputStream(hfos);
+            //ObjectOutputStream hoos = new ObjectOutputStream(hfos);
             doos.writeObject(courses);
             doos.close();
-            hoos.writeObject(courseMap);
-            hoos.close();
+            //hoos.writeObject(courseMap);
+            //hoos.close();
             return 0;
         }
         catch(Exception e){
@@ -89,14 +116,14 @@ public class CoreManager {
     public static int loadData(){
         FileInputStream dfis, hfis; //Data and HashMap File Input Streams respectively
         try {
-            dfis = MainActivity.activity.openFileInput("CourseData");
-            hfis = MainActivity.activity.openFileInput("HashData");
+            dfis = MainActivity.activity.openFileInput("CourseData.bin");
+            //hfis = MainActivity.activity.openFileInput("HashData");
             ObjectInputStream dois = new ObjectInputStream(dfis);
             courses = (ArrayList<Course>) dois.readObject();
             dois.close();
-            ObjectInputStream hois = new ObjectInputStream(hfis);
-            courseMap = (HashMap<String, Course>) hois.readObject();
-            hois.close();
+            //ObjectInputStream hois = new ObjectInputStream(hfis);
+            //courseMap = (HashMap<String, Course>) hois.readObject();
+           // hois.close();
             Log.d("Num loaded Courses", Integer.toString(courses.size()));
         }
         catch(Exception e){
@@ -119,6 +146,17 @@ public class CoreManager {
         BigDecimal bd = new BigDecimal(Float.toString(number));
         bd = bd.setScale(place, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
+    }
+
+    public static boolean deleteAssignment(Assignment assignment, Course course) {
+        for(int i = 0; i < course.numAssignments(); i++){
+            if(course.getAssignment(i).equals(assignment)){
+                course.deleteAssignment(i);
+                saveData();
+                return true;
+            }
+        }
+        return false;
     }
 /*
     public static int darkenColor(int color, float factor) {

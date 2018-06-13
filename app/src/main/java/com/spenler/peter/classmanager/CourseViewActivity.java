@@ -43,7 +43,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         setContentView(R.layout.activity_course_view);
         Bundle bundle = getIntent().getExtras();
         activity = this;
-        course = CoreManager.currentCourse;
+        course = CoreManager.getCurrentCourse();
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);

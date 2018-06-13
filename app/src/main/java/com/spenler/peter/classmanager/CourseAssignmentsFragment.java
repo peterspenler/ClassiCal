@@ -36,7 +36,7 @@ public class CourseAssignmentsFragment extends Fragment {
         sdf = new SimpleDateFormat("EEE MMM d", Locale.US);
         stf = new SimpleDateFormat("h:mm a", Locale.US);
 
-        currentCourse = CoreManager.currentCourse;
+        currentCourse = CoreManager.getCurrentCourse();
 
         CourseAssignmentsFragment.RVAdapter adapter = new CourseAssignmentsFragment.RVAdapter(currentCourse.getAssignments());
         rv.setAdapter(adapter);
@@ -47,7 +47,7 @@ public class CourseAssignmentsFragment extends Fragment {
     public static CourseAssignmentsFragment newInstance (Course course){
         CourseAssignmentsFragment caf = new CourseAssignmentsFragment();
         Bundle bundle = new Bundle();
-        CoreManager.currentCourse = course;
+        CoreManager.setCurrentCourse(course);
         //bundle.putParcelable("course",course);
         caf.setArguments(bundle);
         return caf;
@@ -82,7 +82,7 @@ public class CourseAssignmentsFragment extends Fragment {
                 itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        CoreManager.currentAssignment = assignments.get(getAdapterPosition());
+                        CoreManager.setCurrentAssignment(assignments.get(getAdapterPosition()));
                         startActivity(new Intent(itemView.getContext(), AssignmentViewActivity.class));
                     }
                 });

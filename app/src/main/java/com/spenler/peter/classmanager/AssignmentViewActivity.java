@@ -50,7 +50,7 @@ public class AssignmentViewActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment_view);
         activity = this;
-        assignment = CoreManager.currentAssignment;
+        assignment = CoreManager.getCurrentAssignment();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(assignment.getName());
@@ -93,7 +93,7 @@ public class AssignmentViewActivity extends AppCompatActivity{
     }
 
     public void completeAssignment(View view) {
-        CoreManager.currentAssignment.toggleFinished();
+        CoreManager.getCurrentAssignment().toggleFinished();
         setValues();
     }
 
@@ -101,6 +101,23 @@ public class AssignmentViewActivity extends AppCompatActivity{
     }
 
     public void deleteAssignment(View view) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Delete Assignment")
+                .setMessage("Are you sure you want to delete " + assignment.getName() + "?")
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //try {
+                            CoreManager.deleteAssignment(assignment, CoreManager.getCourseByName(assignment.getCourseName()));
+                            finish();
+                        //}catch (Exception e){
+                        //    Toast.makeText(MainActivity.activity, "Unable to delete assignment", Toast.LENGTH_SHORT).show();
+                        //}
+                    }
+                })
+                .create();
+        dialog.show();
     }
 
     public void markAssignment(View view) {
@@ -109,7 +126,7 @@ public class AssignmentViewActivity extends AppCompatActivity{
         View layout = inflater.inflate(R.layout.dialog_change_mark, null);
         builder1.setView(layout);
         final EditText input1 = (EditText) layout.findViewById(R.id.changeMarkDialogEdit);
-        Float currentMark = CoreManager.currentAssignment.getMark();
+        Float currentMark = CoreManager.getCurrentAssignment().getMark();
         if(currentMark >= 0) {
             input1.setText(Float.toString(currentMark));
         }
@@ -117,7 +134,7 @@ public class AssignmentViewActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(MainActivity.activity, "Updated mark", Toast.LENGTH_SHORT).show();
-                CoreManager.currentAssignment.setMark(Float.parseFloat(input1.getText().toString()));
+                CoreManager.getCurrentAssignment().setMark(Float.parseFloat(input1.getText().toString()));
                 setValues();
             }
         });

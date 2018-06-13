@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         }
         if(page == 1){
             final AddAssignmentDialog addAssignmentDialog = new AddAssignmentDialog();
-            CoreManager.currentCourse = CoreManager.courses.get(0);
+            CoreManager.setCurrentCourse(CoreManager.getCourseByIndex(0));
             addAssignmentDialog.show(getFragmentManager(), "Add Assignment Dialog");
         }
     }
@@ -112,6 +113,12 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     public void onDestroy(){
         CoreManager.saveData();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        CoreManager.saveData();
+        super.onStop();
     }
 
     @Override

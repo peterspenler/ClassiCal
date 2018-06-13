@@ -40,8 +40,8 @@ public class AssignmentFragment extends Fragment {
         stf = new SimpleDateFormat("h:mm a", Locale.US);
         assignments = new ArrayList<>();
 
-        for(int i=0; i < CoreManager.courses.size();i++){
-            Course course = CoreManager.courses.get(i);
+        for(int i=0; i < CoreManager.getCourseNum();i++){
+            Course course = CoreManager.getCourseByIndex(i);
             if(course.getAssignments() != null) {
                 assignments.addAll(course.getAssignments());
             }
@@ -57,7 +57,7 @@ public class AssignmentFragment extends Fragment {
     public static CourseAssignmentsFragment newInstance (Course course){
         CourseAssignmentsFragment caf = new CourseAssignmentsFragment();
         Bundle bundle = new Bundle();
-        CoreManager.currentCourse = course;
+        CoreManager.setCurrentCourse(course);
         //bundle.putParcelable("course",course);
         caf.setArguments(bundle);
         return caf;
@@ -94,7 +94,7 @@ public class AssignmentFragment extends Fragment {
                itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        CoreManager.currentAssignment = assignments.get(getAdapterPosition());
+                        CoreManager.setCurrentAssignment(assignments.get(getAdapterPosition()));
                         startActivity(new Intent(itemView.getContext(), AssignmentViewActivity.class));
                     }
                 });
@@ -113,26 +113,19 @@ public class AssignmentFragment extends Fragment {
             holder.assignmentValue.setText(String.valueOf(CoreManager.round(assignments.get(position).getWeight(),2)) + "%");
             holder.assignmentMark.setText(assignments.get(position).getMarkString());
             holder.assignmentDue.setText("Due: " + sdf.format(assignments.get(position).getDueDate()) + " at " + stf.format(assignments.get(position).getDueDate()));
-           // ArrayList<Course> DEBUG = CoreManager.courses;
-            //int color = CoreManager.courses.get(CoreManager.courseIndex(assignments.get(position).getCourseName())).getColor();
-            holder.iv.setBackgroundColor(assignments.get(position).getColor());
             if(assignments.get(position).isFinished()){
+                holder.iv.setBackgroundColor(CoreManager.desaturateColor(assignments.get(position).getColor(), 0.4f));
                 holder.assignmentCompleteMark.setVisibility(View.VISIBLE);
             }else {
+                holder.iv.setBackgroundColor(assignments.get(position).getColor());
                 holder.assignmentCompleteMark.setVisibility(View.INVISIBLE);
             }
         }
 
         @Override
         public int getItemCount() {
-         //   try {
             Log.d("DEBUG", Integer.toString(assignments.size()));
-                return assignments.size();
-
-         /*   }
-            catch (Exception e){
-                return 0;
-            }*/
+            return assignments.size();
         }
 
         @Override

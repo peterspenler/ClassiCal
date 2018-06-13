@@ -118,10 +118,9 @@ import java.util.Date;
 
     @Override
     public int compareTo(Assignment other){
-        if(isFinished() && !other.isFinished()){
-            return -1;
+        if(!isFinished() && other.isFinished()){
+            return 1;
         }
-
         if(getDueDate().compareTo(other.getDueDate()) > 0)
            return 1;
         else if(getDueDate().compareTo(other.getDueDate()) < 0)

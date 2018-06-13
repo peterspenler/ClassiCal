@@ -59,7 +59,7 @@ public class AddAssignmentDialog extends DialogFragment {
         timeEdit = (EditText) dialogView.findViewById(R.id.assignmentDueTimeText);
         calendar = Calendar.getInstance();
 
-        currentCourse = CoreManager.currentCourse;
+        currentCourse = CoreManager.getCurrentCourse();
         List<String> courseNames = new ArrayList<String>();
         final ArrayList<Course> courses = CoreManager.getCourses();
 
@@ -71,8 +71,8 @@ public class AddAssignmentDialog extends DialogFragment {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, courseNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseSpinner.setAdapter(dataAdapter);
-        Log.d("COURSE TITLE", CoreManager.currentCourse.getName());
-        courseSpinner.setSelection(CoreManager.courseIndexByName(CoreManager.currentCourse.getName()));
+        Log.d("COURSE TITLE", CoreManager.getCurrentCourse().getName());
+        courseSpinner.setSelection(CoreManager.courseIndexByName(CoreManager.getCurrentCourse().getName()));
 
         //Initialize time and date to current time and date
         calendar.setTime(new Date());
