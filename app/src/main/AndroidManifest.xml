@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:fullBackupContent="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CourseViewActivity"/>
-        <activity android:name=".AssignmentViewDialog" android:theme="@android:style/Theme.Material.Dialog.NoActionBar" android:excludeFromRecents="true"/>
+        <activity android:name=".activities.CourseViewActivity"/>
+        <activity android:name=".dialogs.AssignmentViewDialog" android:theme="@android:style/Theme.Material.Dialog.NoActionBar" android:excludeFromRecents="true"/>
     </application>
 
 </manifest>

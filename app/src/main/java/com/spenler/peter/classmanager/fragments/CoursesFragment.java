@@ -1,4 +1,4 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -9,12 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.spenler.peter.classmanager.core.CoreManager;
+import com.spenler.peter.classmanager.core.Course;
+import com.spenler.peter.classmanager.R;
+import com.spenler.peter.classmanager.activities.CourseViewActivity;
 
 import java.util.List;
 

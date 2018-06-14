@@ -1,4 +1,4 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.spenler.peter.classmanager.R;
+import com.spenler.peter.classmanager.core.Assignment;
+import com.spenler.peter.classmanager.core.CoreManager;
+import com.spenler.peter.classmanager.core.Course;
+import com.spenler.peter.classmanager.dialogs.AssignmentViewDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

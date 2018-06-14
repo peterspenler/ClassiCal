@@ -1,8 +1,6 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.core;
 
 import android.graphics.Color;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.Serializable;

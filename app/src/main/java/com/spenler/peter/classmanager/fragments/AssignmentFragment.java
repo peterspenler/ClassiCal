@@ -1,4 +1,4 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.spenler.peter.classmanager.R;
+import com.spenler.peter.classmanager.core.Assignment;
+import com.spenler.peter.classmanager.core.CoreManager;
+import com.spenler.peter.classmanager.core.Course;
+import com.spenler.peter.classmanager.dialogs.AssignmentViewDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +48,7 @@ public class AssignmentFragment extends Fragment {
         stf = new SimpleDateFormat("h:mm a", Locale.US);
         assignments = new ArrayList<>();
 
-        for(int i=0; i < CoreManager.getCourseNum();i++){
+        for(int i = 0; i < CoreManager.getCourseNum(); i++){
             Course course = CoreManager.getCourseByIndex(i);
             if(course.getAssignments() != null) {
                 assignments.addAll(course.getAssignments());

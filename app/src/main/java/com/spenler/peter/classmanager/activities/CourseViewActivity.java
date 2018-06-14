@@ -1,10 +1,8 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -18,6 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.spenler.peter.classmanager.core.CoreManager;
+import com.spenler.peter.classmanager.core.Course;
+import com.spenler.peter.classmanager.dialogs.AddAssignmentDialog;
+import com.spenler.peter.classmanager.fragments.CourseAssignmentsFragment;
+import com.spenler.peter.classmanager.fragments.CourseClassesFragment;
+import com.spenler.peter.classmanager.fragments.CourseTestsFragment;
+import com.spenler.peter.classmanager.R;
 
 import java.util.ArrayList;
 import java.util.List;

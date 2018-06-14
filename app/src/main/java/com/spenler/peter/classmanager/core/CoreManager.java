@@ -1,7 +1,9 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.core;
 
 import android.graphics.Color;
 import android.util.Log;
+
+import com.spenler.peter.classmanager.activities.MainActivity;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,7 +12,6 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * Created by peter on 5/30/17.
@@ -63,7 +64,7 @@ public class CoreManager {
         return -1;
     }
 
-    public static Course getCourseByName(String name){
+    public static com.spenler.peter.classmanager.core.Course getCourseByName(String name){
         for(int i = 0; i < courses.size(); i++){
             if(courses.get(i).getName().equals(name)){
                 return courses.get(i);
@@ -73,7 +74,7 @@ public class CoreManager {
         //return courseMap.get(name);
     }
 
-    public static Course getCourseByIndex(int index){return courses.get(index);}
+    public static com.spenler.peter.classmanager.core.Course getCourseByIndex(int index){return courses.get(index);}
 
     public static int darkenColor(int color, float amount){
         float[] hsv = new float[3];

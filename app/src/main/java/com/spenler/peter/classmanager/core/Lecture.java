@@ -1,4 +1,4 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.core;
 
 import android.graphics.Color;
 

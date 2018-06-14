@@ -1,4 +1,4 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.spenler.peter.classmanager.R;
+import com.spenler.peter.classmanager.core.CoreManager;
 
 import org.xdty.preference.colorpicker.ColorPickerDialog;
 import org.xdty.preference.colorpicker.ColorPickerSwatch;

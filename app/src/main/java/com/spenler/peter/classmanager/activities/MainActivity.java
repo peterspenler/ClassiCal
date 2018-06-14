@@ -1,4 +1,4 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,13 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+
+import com.spenler.peter.classmanager.dialogs.AddAssignmentDialog;
+import com.spenler.peter.classmanager.dialogs.AddCourseDialog;
+import com.spenler.peter.classmanager.fragments.AssignmentFragment;
+import com.spenler.peter.classmanager.core.CoreManager;
+import com.spenler.peter.classmanager.fragments.CoursesFragment;
+import com.spenler.peter.classmanager.R;
 
 import java.util.ArrayList;
 import java.util.List;

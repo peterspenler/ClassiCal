@@ -1,19 +1,15 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.core;
 
-import android.graphics.Color;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by peter on 5/10/17.
  */
 
- class Assignment implements Serializable, Comparable<Assignment>{
+ public class Assignment implements Serializable, Comparable<Assignment>{
 
     private String name, course;
     private int color;
@@ -44,11 +40,11 @@ import java.util.Date;
         return name;
     }
 
-    float getWeight(){
+    public float getWeight(){
         return weight;
     }
 
-    Date getDueDate(){
+    public Date getDueDate(){
         return dueDate;
     }
 

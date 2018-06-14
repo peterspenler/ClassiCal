@@ -1,4 +1,4 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,7 +21,10 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.sql.Time;
+import com.spenler.peter.classmanager.core.CoreManager;
+import com.spenler.peter.classmanager.core.Course;
+import com.spenler.peter.classmanager.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -144,6 +147,7 @@ public class AddAssignmentDialog extends DialogFragment {
                             int courseIndex = CoreManager.courseIndexByName(courseSpinner.getSelectedItem().toString());
                             currentCourse = CoreManager.getCourses().get(courseIndex);
                             currentCourse.addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
+                            CoreManager.saveData();
                             alertDialog.dismiss();
                         }
                         catch(Exception e){

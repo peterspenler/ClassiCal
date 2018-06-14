@@ -1,20 +1,13 @@
-package com.spenler.peter.classmanager;
+package com.spenler.peter.classmanager.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.text.InputType;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,9 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.spenler.peter.classmanager.R;
+import com.spenler.peter.classmanager.activities.MainActivity;
+import com.spenler.peter.classmanager.core.Assignment;
+import com.spenler.peter.classmanager.core.CoreManager;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Created by Gaming PC on 2017-09-05.
