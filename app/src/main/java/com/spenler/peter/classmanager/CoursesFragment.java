@@ -3,6 +3,7 @@ package com.spenler.peter.classmanager;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -25,9 +26,10 @@ public class CoursesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.courses_fragment, container, false);
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView rv = view.findViewById(R.id.recyclerView);
+        assert container != null;
         LinearLayoutManager llm = new LinearLayoutManager(container.getContext());
         rv.setLayoutManager(llm);
 
@@ -46,7 +48,7 @@ public class CoursesFragment extends Fragment {
             this.courses = courses;
         }
 
-        public class CourseViewHolder extends RecyclerView.ViewHolder{
+        class CourseViewHolder extends RecyclerView.ViewHolder{
             CardView cv;
             TextView courseName;
             TextView courseGrade;
@@ -57,15 +59,15 @@ public class CoursesFragment extends Fragment {
             GradientDrawable courseSquare;
             Course currentCourse;
 
-            public CourseViewHolder(final View itemView) {
+            CourseViewHolder(final View itemView) {
                 super(itemView);
-                cv = (CardView) itemView.findViewById(R.id.card_view);
-                courseName = (TextView) itemView.findViewById(R.id.courseTitleText);
-                courseLatestDate = (TextView) itemView.findViewById(R.id.courseDueDateText);
-                courseGrade = (TextView) itemView.findViewById(R.id.courseGradeText);
-                courseAssignments = (TextView) itemView.findViewById(R.id.courseAssignmentsText);
-                courseChar = (TextView) itemView.findViewById(R.id.courseChar);
-                courseImage = (ImageView) itemView.findViewById(R.id.courseSquare);
+                cv = itemView.findViewById(R.id.card_view);
+                courseName = itemView.findViewById(R.id.courseTitleText);
+                courseLatestDate = itemView.findViewById(R.id.courseDueDateText);
+                courseGrade = itemView.findViewById(R.id.courseGradeText);
+                courseAssignments = itemView.findViewById(R.id.courseAssignmentsText);
+                courseChar = itemView.findViewById(R.id.courseChar);
+                courseImage = itemView.findViewById(R.id.courseSquare);
                 courseSquare = (GradientDrawable) courseImage.getDrawable();
 
                 itemView.setOnClickListener(new View.OnClickListener(){
@@ -82,14 +84,14 @@ public class CoursesFragment extends Fragment {
                 });
             }
         }
-        public RVAdapter.CourseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        @NonNull
+        public RVAdapter.CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_layout, parent, false);
-            CourseViewHolder cvh = new CourseViewHolder(v);
-            return cvh;
+            return new CourseViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(CourseViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
             holder.currentCourse = courses.get(position);
             holder.courseName.setText(courses.get(position).getName());
             holder.courseGrade.setText(String.valueOf(CoreManager.round(courses.get(position).getGrade(), 2)) + "%");
@@ -104,7 +106,7 @@ public class CoursesFragment extends Fragment {
         }
 
         @Override
-        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
             super.onAttachedToRecyclerView(recyclerView);
         }
     }

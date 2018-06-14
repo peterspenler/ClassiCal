@@ -10,10 +10,11 @@
     android:background="@color/md_blue_grey_600">
 
     <ImageView
+        android:contentDescription="Course Char Background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/course_square"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:id="@+id/courseSquare"/>
 
@@ -21,8 +22,9 @@
         android:id="@+id/courseChar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/courseSquare"
+        android:layout_alignStart="@+id/courseSquare"
         android:layout_alignBottom="@+id/courseSquare"
+        android:layout_alignTop="@+id/courseSquare"
         android:text="M"
         android:textColor="@color/md_white"
         android:textSize="40sp"
@@ -33,9 +35,9 @@
         android:id="@+id/courseTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/courseSquare"
+        android:layout_alignStart="@+id/courseSquare"
         android:layout_alignTop="@+id/courseSquare"
-        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="6dp"
         android:text="COURSE TITLE"
         android:textStyle="bold"
@@ -45,9 +47,9 @@
         android:id="@+id/courseGradeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/courseTitleText"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:text="100%"
         android:textColor="@color/md_white"/>
 
@@ -57,8 +59,8 @@
         android:text="55 ASSIGNMENTS LEFT"
         android:textColor="@color/md_white"
         android:layout_alignTop="@+id/courseTitleText"
-        android:layout_alignLeft="@+id/courseSquare"
-        android:layout_marginLeft="60dp"
+        android:layout_alignStart="@+id/courseSquare"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="20dp"
         android:id="@+id/courseAssignmentsText"/>
 
@@ -66,9 +68,9 @@
         android:id="@+id/courseDueDateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/courseAssignmentsText"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:text="NOV 26th"
         android:textColor="@color/md_white"
         android:textStyle="italic" />

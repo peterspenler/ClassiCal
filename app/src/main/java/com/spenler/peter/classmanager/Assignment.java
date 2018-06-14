@@ -3,6 +3,7 @@ package com.spenler.peter.classmanager;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -72,9 +73,7 @@ import java.util.Date;
     }
 
     public boolean isMarked(){
-        if(mark < 0)
-            return false;
-        return true;
+        return !(mark < 0);
     }
 
     /*
@@ -117,15 +116,11 @@ import java.util.Date;
     */
 
     @Override
-    public int compareTo(Assignment other){
-        if(!isFinished() && other.isFinished()){
-            return 1;
-        }
-        if(getDueDate().compareTo(other.getDueDate()) > 0)
-           return 1;
-        else if(getDueDate().compareTo(other.getDueDate()) < 0)
+    public int compareTo(@NonNull Assignment other){
+        if(!isFinished() && other.isFinished())
             return -1;
-        else
-            return 0;
+        if(isFinished() && !other.isFinished())
+            return 1;
+        return Integer.compare(getDueDate().compareTo(other.getDueDate()), 0);
     }
 }

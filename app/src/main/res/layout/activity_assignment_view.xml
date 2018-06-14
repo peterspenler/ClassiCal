@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/dialogActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="@drawable/dialog_action_bar"
+        android:contentDescription="ActionBar"
+        />
+
+    <TextView
+        android:id="@+id/dialogActionBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/dialogActionBar"
+        android:layout_alignStart="@+id/dialogActionBar"
+        android:text="ASSIGNMENT TITLE"
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/md_white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
 
     <TextView
         android:id="@+id/assignmentViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/dialogActionBar"
         android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
         android:text="For: TheCourse It's for"
@@ -40,8 +63,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/assignmentViewName"
-        android:layout_marginEnd="20dp"
+        android:layout_below="@+id/dialogActionBar"
+        android:layout_marginTop="20dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         android:text="Worth"
         android:textColor="@color/md_white"/>
 
@@ -49,11 +74,13 @@
         android:id="@+id/assignmentViewWorth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/assignmentViewWorthTitle"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/assignmentViewWorthTitle"
         android:layout_marginTop="20dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         android:text="28.0%"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/md_white"/>
 
     <TextView
@@ -63,7 +90,8 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/assignmentViewWorth"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         android:text="Predicted Mark"
         android:textColor="@color/md_white"/>
 
@@ -71,56 +99,67 @@
         android:id="@+id/assignmentViewMark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/assignmentViewMarkTitle"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/assignmentViewMarkTitle"
         android:layout_marginTop="20dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         android:text="28.0%"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/md_white"/>
-
-    <Button
-        android:id="@+id/assignmentCompletedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="Completed"
-        android:onClick="completeAssignment"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/assignmentCompletedButton"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/assignmentViewMark"
+        android:layout_marginTop="12dp"
         android:id="@+id/linearLayout">
         <Button
             android:id="@+id/assignmentEditButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:text="Edit"
-            android:onClick="editAssignment"/>
+            android:onClick="editAssignment"
+            android:backgroundTint="@color/md_grey_200"
+            android:textColor="@color/md_grey_900"/>
         <Button
             android:id="@+id/assignmentDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:text="Delete"
-            android:onClick="deleteAssignment"/>
+            android:onClick="deleteAssignment"
+            android:backgroundTint="@color/md_grey_200"
+            android:textColor="@color/md_grey_900"/>
         <Button
             android:id="@+id/assignmentMarkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:text="Mark"
-            android:onClick="markAssignment"/>
+            android:onClick="markAssignment"
+            android:backgroundTint="@color/md_grey_200"
+            android:textColor="@color/md_grey_900"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/assignmentCompletedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Completed"
+        android:onClick="completeAssignment"
+        android:backgroundTint="@color/md_grey_200"
+        android:textColor="@color/md_grey_900"/>
 
     <ImageView
         android:id="@+id/assignmentViewCheckImage"
@@ -128,10 +167,8 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/dark_checkmark"
-        android:layout_above="@+id/linearLayout"
-        android:layout_below="@+id/assignmentViewDueIn"
+        android:layout_alignBottom="@+id/assignmentCompletedButton"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"/>
-
-
+        android:layout_marginEnd="40dp"
+        android:contentDescription="Background Checkmark"/>
 </RelativeLayout>
