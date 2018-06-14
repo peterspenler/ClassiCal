@@ -2,6 +2,7 @@ package com.spenler.peter.classmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -31,9 +32,10 @@ public class AssignmentFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.courses_fragment, container, false);
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView rv = view.findViewById(R.id.recyclerView);
+        assert container != null;
         LinearLayoutManager llm = new LinearLayoutManager(container.getContext());
         rv.setLayoutManager(llm);
         sdf = new SimpleDateFormat("EEE MMM d", Locale.US);
@@ -71,7 +73,7 @@ public class AssignmentFragment extends Fragment {
             this.assignments = assignments;
         }
 
-        public class AssignmentViewHolder extends RecyclerView.ViewHolder{
+        class AssignmentViewHolder extends RecyclerView.ViewHolder{
             CardView cv;
             TextView assignmentName;
             TextView assignmentValue;
@@ -81,33 +83,33 @@ public class AssignmentFragment extends Fragment {
             Assignment currentAssignment;
             View iv;
 
-            public AssignmentViewHolder(final View itemView) {
+            AssignmentViewHolder(final View itemView) {
                 super(itemView);
-                cv = (CardView) itemView.findViewById(R.id.card_view);
-                assignmentName = (TextView) itemView.findViewById(R.id.assignmentTitleText);
-                assignmentValue = (TextView) itemView.findViewById(R.id.assignmentValueText);
-                assignmentMark = (TextView) itemView.findViewById(R.id.assignmentMarkText);
-                assignmentDue = (TextView) itemView.findViewById(R.id.assignmentDueDateText);
-                assignmentCompleteMark = (TextView) itemView.findViewById(R.id.assignmentCompleteMark);
+                cv = itemView.findViewById(R.id.card_view);
+                assignmentName = itemView.findViewById(R.id.assignmentTitleText);
+                assignmentValue = itemView.findViewById(R.id.assignmentValueText);
+                assignmentMark = itemView.findViewById(R.id.assignmentMarkText);
+                assignmentDue = itemView.findViewById(R.id.assignmentDueDateText);
+                assignmentCompleteMark = itemView.findViewById(R.id.assignmentCompleteMark);
                 iv = itemView;
 
                itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
                         CoreManager.setCurrentAssignment(assignments.get(getAdapterPosition()));
-                        startActivity(new Intent(itemView.getContext(), AssignmentViewActivity.class));
+                        startActivity(new Intent(itemView.getContext(), AssignmentViewDialog.class));
                     }
                 });
             }
         }
-        public AssignmentFragment.RVAdapter.AssignmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        @NonNull
+        public AssignmentFragment.RVAdapter.AssignmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.assignment_layout, parent, false);
-            AssignmentFragment.RVAdapter.AssignmentViewHolder cvh = new AssignmentFragment.RVAdapter.AssignmentViewHolder(v);
-            return cvh;
+            return new AssignmentFragment.RVAdapter.AssignmentViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(AssignmentFragment.RVAdapter.AssignmentViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull AssignmentFragment.RVAdapter.AssignmentViewHolder holder, int position) {
             holder.currentAssignment = assignments.get(position);
             holder.assignmentName.setText(assignments.get(position).getName());
             holder.assignmentValue.setText(String.valueOf(CoreManager.round(assignments.get(position).getWeight(),2)) + "%");
@@ -129,7 +131,7 @@ public class AssignmentFragment extends Fragment {
         }
 
         @Override
-        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
             super.onAttachedToRecyclerView(recyclerView);
         }
 

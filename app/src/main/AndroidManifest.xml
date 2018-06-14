@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CourseViewActivity"/>
-        <activity android:name=".AssignmentViewActivity" android:theme="@android:style/Theme.Material.Dialog.NoActionBar" android:excludeFromRecents="true"/>
+        <activity android:name=".AssignmentViewDialog" android:theme="@android:style/Theme.Material.Dialog.NoActionBar" android:excludeFromRecents="true"/>
     </application>
 
 </manifest>

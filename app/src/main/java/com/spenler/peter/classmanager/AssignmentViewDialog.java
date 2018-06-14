@@ -4,9 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +30,7 @@ import java.util.Objects;
  * Created by Gaming PC on 2017-09-05.
  */
 
-public class AssignmentViewActivity extends /*AppCompat*/Activity{
+public class AssignmentViewDialog extends /*AppCompat*/Activity{
     public Activity activity;
     public View view;
     private Assignment assignment;
@@ -99,6 +104,7 @@ public class AssignmentViewActivity extends /*AppCompat*/Activity{
 
     public void completeAssignment(View view) {
         CoreManager.getCurrentAssignment().toggleFinished();
+        CoreManager.saveData();
         setValues();
     }
 
@@ -127,25 +133,49 @@ public class AssignmentViewActivity extends /*AppCompat*/Activity{
 
     @SuppressLint("SetTextI18n")
     public void markAssignment(View view) {
-        final AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
-        LayoutInflater inflater = getLayoutInflater();
-        @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.dialog_change_mark, null);
-        builder1.setView(layout);
-        final EditText input1 = layout.findViewById(R.id.changeMarkDialogEdit);
-        Float currentMark = CoreManager.getCurrentAssignment().getMark();
-        if(currentMark >= 0) {
-            input1.setText(Float.toString(currentMark));
-        }
-        builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+        final AssignmentViewDialog thisActivity = this;
+
+        LinearLayout container = new LinearLayout(this);
+        container.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams lllp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        lllp.setMargins(50, 0, 50, 0);
+        final EditText input = new EditText(this);
+        if(assignment.getMark() >= 0)
+            input.setText(Float.toString(assignment.getMark()));
+        input.setLayoutParams(lllp);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        input.setId(View.generateViewId());
+        final int id = input.getId();
+        container.addView(input);
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Enter Mark")
+                .setPositiveButton("Ok", null)
+                .setView(container)
+                .create();
+
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MainActivity.activity, "Updated mark", Toast.LENGTH_SHORT).show();
-                CoreManager.getCurrentAssignment().setMark(Float.parseFloat(input1.getText().toString()));
-                setValues();
+            public void onShow(DialogInterface dialog) {
+                final Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                final EditText edit = alertDialog.findViewById(id);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try{
+                            assignment.setMark(Float.parseFloat(edit.getText().toString()));
+                            alertDialog.dismiss();
+                            thisActivity.setValues();
+                            CoreManager.saveData();
+                        }catch(NumberFormatException e){
+                            Toast.makeText(getApplicationContext(), "Mark must be decimal number", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
-        Dialog dialog = builder1.create();
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.md_blue_grey_700);
-        dialog.show();
+        alertDialog.show();
     }
 }

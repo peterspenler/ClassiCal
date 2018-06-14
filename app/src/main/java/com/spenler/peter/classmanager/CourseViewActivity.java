@@ -1,5 +1,6 @@
 package com.spenler.peter.classmanager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,14 +27,13 @@ import java.util.List;
  */
 
 public class CourseViewActivity extends AppCompatActivity implements DialogInterface.OnDismissListener{
-    public static Activity activity;
-    public static View view;
+    public Activity activity;
+    public View view;
     private static Course course;
 
-    private static TextView currentMarkView;
-    private static TextView predictedMarkView;
+    private TextView currentMarkView;
+    private TextView predictedMarkView;
 
-    private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     public Context context = this;
 
@@ -41,32 +41,32 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
-        Bundle bundle = getIntent().getExtras();
+        //Bundle bundle = getIntent().getExtras();
         activity = this;
         course = CoreManager.getCurrentCourse();
 
-        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        //SectionsPageAdapter mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         ActionBar actionBar = getSupportActionBar();
 
+        assert actionBar != null;
         actionBar.setTitle(course.getName());
         actionBar.setBackgroundDrawable(new ColorDrawable(course.getColor()));
 
         int darkColor = CoreManager.darkenColor(course.getColor(), 0.7f);
         activity.getWindow().setStatusBarColor(darkColor);
 
-        TabLayout tabBar =  (TabLayout) findViewById(R.id.tabs);
-        AppBarLayout tabBarBackground = (AppBarLayout) findViewById(R.id.appbar);
+        AppBarLayout tabBarBackground = findViewById(R.id.appbar);
         int lightColor = CoreManager.darkenColor(course.getColor(), 1.1f);
-        tabBar.setBackgroundColor(lightColor);
+        tabLayout.setBackgroundColor(lightColor);
         tabBarBackground.setBackgroundColor(lightColor);
 
-        currentMarkView = (TextView)findViewById(R.id.courseCurrentMarkText);
-        predictedMarkView = (TextView)findViewById(R.id.coursePredictedMarkText);
+        currentMarkView = findViewById(R.id.courseCurrentMarkText);
+        predictedMarkView = findViewById(R.id.coursePredictedMarkText);
 
         refreshGrades();
     }
@@ -125,12 +125,12 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public void addFragment(Fragment fragment, String title){
+        void addFragment(Fragment fragment, String title){
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
 
-        public SectionsPageAdapter(FragmentManager fm) {
+        SectionsPageAdapter(FragmentManager fm) {
             super(fm);
         }
 

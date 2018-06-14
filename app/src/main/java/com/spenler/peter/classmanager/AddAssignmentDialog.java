@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -47,20 +48,19 @@ public class AddAssignmentDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Add_Dialog);
         final Context context = getActivity();
 
         inflater = getActivity().getLayoutInflater();
         dialogView = inflater.inflate(R.layout.dialog_add_assignment, null);
-        nameEdit = (EditText) dialogView.findViewById(R.id.assignmentNameDialog);
-        worthEdit = (EditText) dialogView.findViewById(R.id.assignmentWorthDialog);
-        courseSpinner = (Spinner) dialogView.findViewById(R.id.assignmentCourseSpinner);
-        dateEdit = (EditText) dialogView.findViewById(R.id.assignmentDueDateText);
-        timeEdit = (EditText) dialogView.findViewById(R.id.assignmentDueTimeText);
+        nameEdit = dialogView.findViewById(R.id.assignmentNameDialog);
+        worthEdit = dialogView.findViewById(R.id.assignmentWorthDialog);
+        courseSpinner = dialogView.findViewById(R.id.assignmentCourseSpinner);
+        dateEdit = dialogView.findViewById(R.id.assignmentDueDateText);
+        timeEdit = dialogView.findViewById(R.id.assignmentDueTimeText);
         calendar = Calendar.getInstance();
 
         currentCourse = CoreManager.getCurrentCourse();
-        List<String> courseNames = new ArrayList<String>();
+        List<String> courseNames = new ArrayList<>();
         final ArrayList<Course> courses = CoreManager.getCourses();
 
         //Initialize spinner
@@ -68,7 +68,7 @@ public class AddAssignmentDialog extends DialogFragment {
             courseNames.add(courses.get(i).getName());
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, courseNames);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, courseNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseSpinner.setAdapter(dataAdapter);
         Log.d("COURSE TITLE", CoreManager.getCurrentCourse().getName());
@@ -120,30 +120,41 @@ public class AddAssignmentDialog extends DialogFragment {
             }
         });
 
-        //Initialize buttons
-        builder.setView(dialogView)
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.Add_Dialog)
+                .setView(dialogView)
+                .setPositiveButton("Save", null)
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        AddAssignmentDialog.this.getDialog().dismiss();
+                    }
+                })
+                .create();
+
+        dialogView.setBackgroundColor(ContextCompat.getColor(context, R.color.md_blue_grey_700));
+
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         try {
                             int courseIndex = CoreManager.courseIndexByName(courseSpinner.getSelectedItem().toString());
                             currentCourse = CoreManager.getCourses().get(courseIndex);
                             currentCourse.addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
+                            alertDialog.dismiss();
                         }
                         catch(Exception e){
                             Toast.makeText(dialogView.getContext() ,"All values must be filled!!!!", Toast.LENGTH_SHORT).show();
                         }
-
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        AddAssignmentDialog.this.getDialog().cancel();
                     }
                 });
+            }
+        });
 
-        dialogView.setBackgroundColor(ContextCompat.getColor(context, R.color.md_blue_grey_700));
-        return builder.create();
+        return alertDialog;
     }
 
     public AddAssignmentDialog newInstance(Bundle bundle){
