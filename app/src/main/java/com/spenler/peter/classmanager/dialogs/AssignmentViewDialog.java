@@ -17,8 +17,10 @@ import android.widget.Toast;
 
 import com.spenler.peter.classmanager.R;
 import com.spenler.peter.classmanager.activities.MainActivity;
+import com.spenler.peter.classmanager.core.App;
 import com.spenler.peter.classmanager.core.Assignment;
 import com.spenler.peter.classmanager.core.CoreManager;
+import com.spenler.peter.classmanager.fragments.AssignmentFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -31,6 +33,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
     public Activity activity;
     public View view;
     private Assignment assignment;
+    private AssignmentFragment parent;
 
     SimpleDateFormat sdf;
     SimpleDateFormat stf;
@@ -51,7 +54,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
         setContentView(R.layout.activity_assignment_view);
         activity = this;
         assignment = CoreManager.getCurrentAssignment();
-
+        parent = MainActivity.getAssignmentFragment();
         //android.app.ActionBar actionBar = getActionBar();
         //actionBar.setTitle(assignment.getName());
         //actionBar.setBackgroundDrawable(new ColorDrawable(assignment.getColor()));
@@ -103,13 +106,14 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
         CoreManager.getCurrentAssignment().toggleFinished();
         CoreManager.saveData();
         setValues();
+        parent.refreshFragment();
     }
 
     public void editAssignment(View view) {
     }
 
     public void deleteAssignment(View view) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this, R.style.Add_Dialog)
                 .setTitle("Delete Assignment")
                 .setMessage("Are you sure you want to delete " + assignment.getName() + "?")
                 .setNegativeButton("Cancel", null)
@@ -120,7 +124,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
                             CoreManager.deleteAssignment(assignment, CoreManager.getCourseByName(assignment.getCourseName()));
                             finish();
                         }catch (NullPointerException e){
-                            Toast.makeText(MainActivity.activity, "Unable to delete assignment", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(App.getContext(), "Unable to delete assignment", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -146,7 +150,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
         final int id = input.getId();
         container.addView(input);
 
-        final AlertDialog alertDialog = new AlertDialog.Builder(this)
+        final AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Add_Dialog)
                 .setTitle("Enter Mark")
                 .setPositiveButton("Ok", null)
                 .setView(container)
@@ -167,7 +171,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
                             thisActivity.setValues();
                             CoreManager.saveData();
                         }catch(NumberFormatException e){
-                            Toast.makeText(getApplicationContext(), "Mark must be decimal number", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(App.getContext(), "Mark must be decimal number", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

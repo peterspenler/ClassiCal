@@ -1,22 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context="com.spenler.peter.classmanager.dialogs.AddAssignmentDialog">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:paddingTop="20dp"
-        android:paddingStart="30dp"
-        android:text="Add Assignment:"
-        android:textColor="@color/md_grey_300"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/addDialogTitle"/>
-    />
     <EditText
         android:id="@+id/assignmentNameDialog"
         android:layout_width="match_parent"
@@ -35,7 +23,6 @@
         android:id="@+id/assignmentCourseSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addDialogTitle"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"/>
@@ -48,8 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="34dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="34dp"
         android:layout_marginBottom="4dp"
         android:fontFamily="sans-serif"
         android:hint="Worth"
@@ -63,9 +50,9 @@
         android:textSize="18sp"
         android:text="%"
         android:layout_alignTop="@+id/assignmentWorthDialog"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="12dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginEnd="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/assignmentWorthDialog"
         android:layout_toEndOf="@+id/dueDateTitle"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="4dp"
         android:ems="10"
         android:focusable="false"
@@ -100,7 +87,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/md_grey_300"
         android:textSize="18sp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginStart="6dp"
         android:text="At:"
         android:layout_alignTop="@+id/dueDateTitle"
         android:layout_below="@+id/assignmentDueDateText"
@@ -113,8 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/assignmentDueDateText"
         android:layout_toEndOf="@+id/dueTimeTitle"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="2dp"
         android:ems="10"
         android:text="77:77 PM"
         android:focusable="false"

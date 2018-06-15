@@ -1,6 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,23 +10,25 @@
         android:layout_height="60dp"
         android:paddingTop="20dp"
         android:paddingStart="30dp"
-        android:text="Add Course:"
+        android:paddingEnd="30dp"
+        android:text="Add Course"
         android:textColor="@color/md_grey_300"
         android:textSize="20sp"
         android:textStyle="bold"
         android:id="@+id/addDialogTitle"/>
-        />
+
     <ImageButton
         android:id="@+id/colorButton"
         style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignTop="@+id/addDialogTitle"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
         android:background="@null"
-        android:src="@drawable/circle"/>
+        android:src="@drawable/circle"
+        android:contentDescription="Color indicator"/>
     <EditText
         android:id="@+id/nameDialog"
         android:layout_width="match_parent"

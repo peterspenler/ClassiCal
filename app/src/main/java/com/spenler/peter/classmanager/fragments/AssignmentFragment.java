@@ -33,6 +33,7 @@ import java.util.Locale;
 public class AssignmentFragment extends Fragment {
     private static final String TAG = "AssignmentFragment";
     private List<Assignment> assignments;
+    private AssignmentFragment.RVAdapter adapter;
     SimpleDateFormat sdf;
     SimpleDateFormat stf;
 
@@ -56,10 +57,15 @@ public class AssignmentFragment extends Fragment {
         }
         Collections.sort(assignments);
 
-        AssignmentFragment.RVAdapter adapter = new AssignmentFragment.RVAdapter(assignments);
+        adapter = new AssignmentFragment.RVAdapter(assignments);
         rv.setAdapter(adapter);
 
         return view;
+    }
+
+    public void refreshFragment(){
+        Collections.sort(assignments);
+        adapter.notifyDataSetChanged();
     }
 
     public static CourseAssignmentsFragment newInstance (Course course){

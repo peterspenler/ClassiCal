@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -34,14 +35,13 @@ public class AddCourseDialog extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Add_Dialog);
         final Context context = getActivity();
 
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_add_course, null);
-        final EditText nameEdit = (EditText) dialogView.findViewById(R.id.nameDialog);
-        final EditText weightEdit = (EditText) dialogView.findViewById(R.id.WeightDialog);
-        final ImageButton colorButton = (ImageButton) dialogView.findViewById(R.id.colorButton);
+        final EditText nameEdit = dialogView.findViewById(R.id.nameDialog);
+        final EditText weightEdit = dialogView.findViewById(R.id.WeightDialog);
+        final ImageButton colorButton = dialogView.findViewById(R.id.colorButton);
         final GradientDrawable colorCircle = (GradientDrawable) colorButton.getDrawable();
         final Random rand = new Random();
 
@@ -68,7 +68,7 @@ public class AddCourseDialog extends DialogFragment{
 
         });
 
-        builder.setView(dialogView)
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.Add_Dialog).setView(dialogView)
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -92,10 +92,34 @@ public class AddCourseDialog extends DialogFragment{
                     public void onClick(DialogInterface dialog, int id) {
                         AddCourseDialog.this.getDialog().cancel();
                     }
-                });
+                })
+                .create();
 
-        dialogView.setBackgroundColor(ContextCompat.getColor(context, R.color.md_blue_grey_700));
-        return builder.create();
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            if(CoreManager.getCourseByName(nameEdit.getText().toString()) == null){
+                                    CoreManager.addCourse(nameEdit.getText().toString(), Float.parseFloat(weightEdit.getText().toString()), mSelectedColor);
+                                    alertDialog.dismiss();
+                            }
+                            else
+                                Toast.makeText(dialogView.getContext() ,"Course already exists", Toast.LENGTH_SHORT).show();
+                        }
+                        catch(Exception e){
+                            Toast.makeText(dialogView.getContext() ,"All values must be filled", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        return alertDialog;
     }
 
     public AddCourseDialog newInstance(Bundle bundle){

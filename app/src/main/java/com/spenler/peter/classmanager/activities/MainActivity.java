@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private CoursesFragment coursesFragment;
-    private AssignmentFragment assignmentFragment;
+    private static AssignmentFragment assignmentFragment;
     public Context context;
-    public static Activity activity;
+    public Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         assignmentFragment = new AssignmentFragment();
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
         this.getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.md_green_700));
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -107,6 +107,10 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             CoreManager.setCurrentCourse(CoreManager.getCourseByIndex(0));
             addAssignmentDialog.show(getFragmentManager(), "Add Assignment Dialog");
         }
+    }
+
+    public static AssignmentFragment getAssignmentFragment() {
+        return assignmentFragment;
     }
 
     @Override

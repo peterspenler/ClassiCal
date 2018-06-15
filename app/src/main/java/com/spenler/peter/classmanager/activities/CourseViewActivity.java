@@ -1,6 +1,7 @@
 package com.spenler.peter.classmanager.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
@@ -14,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,6 +42,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
 
     private TextView currentMarkView;
     private TextView predictedMarkView;
+    private TextView weightView;
 
     private ViewPager mViewPager;
     public Context context = this;
@@ -73,6 +77,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
 
         currentMarkView = findViewById(R.id.courseCurrentMarkText);
         predictedMarkView = findViewById(R.id.coursePredictedMarkText);
+        weightView = findViewById(R.id.courseWeightText);
 
         refreshGrades();
     }
@@ -80,6 +85,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
     void refreshGrades(){
         predictedMarkView.setText("Predicted Mark: " + CoreManager.round(course.getPredictedGrade(),2));
         currentMarkView.setText("Current Mark: " + CoreManager.round(course.getGrade(), 2));
+        weightView.setText("Weight: " + CoreManager.round((float) course.getWeight(),2));
     }
 
     public void addItem(View view){
@@ -122,7 +128,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         viewPager.setAdapter(adapter);
     }
 
-    public void openCalendar(){
+    public void openCalendar(View view){
         Log.i("MainActivity", "Calendar Button Pressed");
     }
 
@@ -153,6 +159,34 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         @Override
         public int getCount() {
             return mFragmentList.size();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_course_view, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.remove_course:
+                AlertDialog dialog = new AlertDialog.Builder(this, R.style.Add_Dialog)
+                        .setTitle("Remove course")
+                        .setMessage("Do you want to remove this course permanently?")
+                        .setNegativeButton("No", null)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .create();
+                dialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

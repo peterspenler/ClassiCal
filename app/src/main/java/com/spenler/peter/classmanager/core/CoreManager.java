@@ -1,8 +1,10 @@
 package com.spenler.peter.classmanager.core;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.spenler.peter.classmanager.R;
 import com.spenler.peter.classmanager.activities.MainActivity;
 
 import java.io.FileInputStream;
@@ -89,9 +91,14 @@ public class CoreManager {
     public static int desaturateColor(int color, float amount){
         float[] hsv = new float[3];
         int darkColor;
-
         Color.colorToHSV(color, hsv);
-        hsv[1] *= amount; // Format amount like "0.7f"
+
+        if(hsv[1] == 0){
+            hsv[2] += 0.25;
+        }else{
+            hsv[1] *= amount; // Format amount like "0.7f"
+        }
+
         darkColor = Color.HSVToColor(hsv);
         return darkColor;
     }
@@ -99,7 +106,7 @@ public class CoreManager {
     public static int saveData(){
         FileOutputStream dfos, hfos; //Data and HashMap File Output Streams respectively
         try{
-            dfos = MainActivity.activity.openFileOutput("CourseData.bin", MainActivity.activity.MODE_PRIVATE);
+            dfos = App.getContext().openFileOutput("CourseData.bin", Context.MODE_PRIVATE);
             //hfos = MainActivity.activity.openFileOutput("HashData", MainActivity.activity.MODE_PRIVATE);
             ObjectOutputStream doos = new ObjectOutputStream(dfos);
             //ObjectOutputStream hoos = new ObjectOutputStream(hfos);
@@ -117,7 +124,7 @@ public class CoreManager {
     public static int loadData(){
         FileInputStream dfis, hfis; //Data and HashMap File Input Streams respectively
         try {
-            dfis = MainActivity.activity.openFileInput("CourseData.bin");
+            dfis = App.getContext().openFileInput("CourseData.bin");
             //hfis = MainActivity.activity.openFileInput("HashData");
             ObjectInputStream dois = new ObjectInputStream(dfis);
             courses = (ArrayList<Course>) dois.readObject();

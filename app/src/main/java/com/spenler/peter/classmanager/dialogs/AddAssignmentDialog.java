@@ -39,8 +39,6 @@ import java.util.Locale;
 
 public class AddAssignmentDialog extends DialogFragment {
 
-    private LayoutInflater inflater;
-    private View dialogView;
     private EditText nameEdit;
     private EditText worthEdit;
     private Spinner courseSpinner;
@@ -53,8 +51,8 @@ public class AddAssignmentDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState){
         final Context context = getActivity();
 
-        inflater = getActivity().getLayoutInflater();
-        dialogView = inflater.inflate(R.layout.dialog_add_assignment, null);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_add_assignment, null);
         nameEdit = dialogView.findViewById(R.id.assignmentNameDialog);
         worthEdit = dialogView.findViewById(R.id.assignmentWorthDialog);
         courseSpinner = dialogView.findViewById(R.id.assignmentCourseSpinner);
@@ -124,6 +122,7 @@ public class AddAssignmentDialog extends DialogFragment {
         });
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.Add_Dialog)
+                .setTitle("Add Assignment")
                 .setView(dialogView)
                 .setPositiveButton("Save", null)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -151,7 +150,7 @@ public class AddAssignmentDialog extends DialogFragment {
                             alertDialog.dismiss();
                         }
                         catch(Exception e){
-                            Toast.makeText(dialogView.getContext() ,"All values must be filled!!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context.getApplicationContext() ,"All values must be filled!!!!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

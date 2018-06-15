@@ -17,35 +17,46 @@
         <!--<android.support.v7.widget.Toolbar
             android:layout_height="wrap_content"
             android:layout_width="match_parent">-->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp">
             <TextView
                 android:id="@+id/courseCurrentMarkText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_gravity="top|start"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:textColor="@color/md_white"
-                android:text="Current Mark: 34.56%"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Current Mark: -34.56%"/>
 
             <TextView
                 android:id="@+id/coursePredictedMarkText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/md_white"
-                android:text="Predicted Mark: 32.56%"/>
-        </RelativeLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Predicted Mark: -32.56%"/>
+
+            <TextView
+                android:id="@+id/courseWeightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/md_white"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Weight: -0.1"/>
+
+        </LinearLayout>
         <!--</android.support.v7.widget.Toolbar>-->
 
         <android.support.design.widget.TabLayout

@@ -1,6 +1,7 @@
 package com.spenler.peter.classmanager.core;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ public class Course implements Serializable, Comparable<Course>{
 
     private String name;
     private int id, color;
-    double weight, grade;
+    private double weight, grade;
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private ArrayList<Lecture> lectures = new ArrayList<>();
 
@@ -55,7 +56,7 @@ public class Course implements Serializable, Comparable<Course>{
     public double getPredictedGrade(){
         double totalPercent = 0;
         double totalMarks = 0;
-        double predictedGrade = 0;
+        double predictedGrade;
         for(int i = 0; i < assignments.size(); i++){
             if(assignments.get(i).isMarked()){
                 totalPercent += assignments.get(i).getWeight();
@@ -79,6 +80,10 @@ public class Course implements Serializable, Comparable<Course>{
 
     public void deleteAssignment(int i){
         assignments.remove(i);
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     public String assignmentsLeft(){
@@ -108,13 +113,8 @@ public class Course implements Serializable, Comparable<Course>{
     }
 
     @Override
-    public int compareTo(Course other){
-        if(getName().compareTo(other.getName()) > 0)
-            return 1;
-        else if(getName().compareTo(other.getName()) < 0)
-            return -1;
-        else
-            return 0;
+    public int compareTo(@NonNull Course other){
+        return Integer.compare(getName().compareTo(other.getName()), 0);
     }
 
 /*

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Add_Dialog" parent="@android:style/Theme.Material.Dialog">
+    <style name="Add_Dialog" parent="@android:style/Theme.Material.Dialog.NoActionBar">
         <item name="android:windowBackground">@color/md_blue_grey_700</item>
-        <item name="android:gravity">center</item>
+        <item name="android:minWidth">200dp</item>
+
     </style>
 </resources>
