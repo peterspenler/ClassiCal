@@ -86,7 +86,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
     private void setValues(){
         assignmentViewName.setText("For: " + assignment.getCourseName());
         assignmentViewDueDate.setText("Due: " + sdf.format(assignment.getDueDate()) + " at " + stf.format(assignment.getDueDate()));
-        assignmentViewDueIn.setText("Due in 4 days");
+        assignmentViewDueIn.setText(CoreManager.timeUntilDueString(assignment.getDueDate()));
         assignmentViewWorth.setText(String.valueOf(CoreManager.round(assignment.getWeight(),2)) + "%");
         if(assignment.isFinished())
             assignmentViewMarkTitle.setText("Mark");
@@ -94,10 +94,12 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
             assignmentViewMarkTitle.setText("Predicted Mark");
         assignmentViewMark.setText(assignment.getMarkString());
         if(assignment.isFinished()) {
+            assignmentViewDueIn.setVisibility(View.GONE);
             assignmentViewCheckImage.setVisibility(View.VISIBLE);
             completeAssignmentButton.setText("Un-complete Assignment");
         }else {
-            assignmentViewCheckImage.setVisibility(View.INVISIBLE);
+            assignmentViewDueIn.setVisibility(View.VISIBLE);
+            assignmentViewCheckImage.setVisibility(View.GONE);
             completeAssignmentButton.setText("Complete Assignment");
         }
     }

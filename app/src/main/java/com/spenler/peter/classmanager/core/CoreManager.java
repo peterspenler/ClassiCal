@@ -13,7 +13,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * Created by peter on 5/30/17.
@@ -176,6 +178,42 @@ public class CoreManager {
             return true;
         }
         return false;
+    }
+
+    public static String timeUntilDueString(Date duedate){
+        long compare = duedate.getTime() - Calendar.getInstance().getTime().getTime();
+
+        if(compare > 0){
+            if(compare < 60000){
+                return "Due in < 1 minute";
+            }if(compare < 1200000){
+                return "Due in 1 minute";
+            }else if(compare < 3600000){
+                return "Due in " + (int)Math.ceil(((double)compare)/60000.0f) + " minutes";
+            }else if(compare < 7200000){
+                return "Due in 1 hour";
+            }else if(compare < 86400000){
+                return "Due in " + (int)Math.ceil(((double)compare)/3600000.0f) + " hours";
+            }else if(compare < 172800000){
+                return "Due in 1 day";
+            }else if(compare < 2592000000L){
+                return "Due in " + (int)Math.ceil(((double)compare)/86400000.0f) + " days";
+            }else{
+                return "Due in over a month";
+            }
+        }else{
+            if(compare > -60000){
+                return "< 1 minute overdue";
+            }else if(compare > -3600000){
+                return (int)Math.ceil(((double)compare * -1)/60000.0f) + " minutes overdue";
+            }else if(compare > -86400000){
+                return (int)Math.ceil(((double)compare * -1)/3600000.0f) + " hours overdue";
+            }else if(compare > -2592000000L){
+                return (int)Math.ceil(((double)compare * -1)/86400000.0f) + " days overdue";
+            }else{
+                return "Over a month overdue";
+            }
+        }
     }
 /*
     public static int darkenColor(int color, float factor) {

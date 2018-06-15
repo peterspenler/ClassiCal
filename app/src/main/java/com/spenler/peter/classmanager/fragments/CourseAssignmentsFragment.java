@@ -108,11 +108,13 @@ public class CourseAssignmentsFragment extends Fragment {
             holder.assignmentName.setText(assignments.get(position).getName());
             holder.assignmentValue.setText(String.valueOf(CoreManager.round(assignments.get(position).getWeight(),2)) + "%");
             holder.assignmentMark.setText(assignments.get(position).getMarkString());
-            holder.assignmentDue.setText("Due: " + sdf.format(assignments.get(position).getDueDate()) + " at " + stf.format(assignments.get(position).getDueDate()));
+            holder.assignmentDue.setText(CoreManager.timeUntilDueString(assignments.get(position).getDueDate()));
             if(assignments.get(position).isFinished()){
                 holder.assignmentCompleteMark.setVisibility(View.VISIBLE);
+                holder.assignmentDue.setVisibility(View.GONE);
             }else{
                 holder.assignmentCompleteMark.setVisibility(View.INVISIBLE);
+                holder.assignmentDue.setVisibility(View.VISIBLE);
             }
         }
 
