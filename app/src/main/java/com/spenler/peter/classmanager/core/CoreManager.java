@@ -156,12 +156,24 @@ public class CoreManager {
     }
 
     public static boolean deleteAssignment(Assignment assignment, Course course) {
-        for(int i = 0; i < course.numAssignments(); i++){
-            if(course.getAssignment(i).equals(assignment)){
-                course.deleteAssignment(i);
-                saveData();
-                return true;
+        int i = course.getAssignments().indexOf(assignment);
+        if(i != -1){
+            course.deleteAssignment(i);
+            saveData();
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean removeCourse(Course course){
+        int i = courses.indexOf(course);
+        if(i != -1){
+            for(int j = 0; j < course.numAssignments(); j++){
+                course.deleteAssignment(j);
             }
+            courses.remove(i);
+            saveData();
+            return true;
         }
         return false;
     }

@@ -179,7 +179,9 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                if(CoreManager.removeCourse(course)){
+                                    finish();
+                                }
                             }
                         })
                         .create();

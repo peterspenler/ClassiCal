@@ -121,8 +121,9 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         try {
-                            CoreManager.deleteAssignment(assignment, CoreManager.getCourseByName(assignment.getCourseName()));
-                            finish();
+                            if(CoreManager.deleteAssignment(assignment, CoreManager.getCourseByName(assignment.getCourseName()))) {
+                                finish();
+                            }
                         }catch (NullPointerException e){
                             Toast.makeText(App.getContext(), "Unable to delete assignment", Toast.LENGTH_SHORT).show();
                         }

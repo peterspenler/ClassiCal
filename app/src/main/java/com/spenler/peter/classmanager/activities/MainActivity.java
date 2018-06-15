@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     public static AssignmentFragment getAssignmentFragment() {
         return assignmentFragment;
     }
-
+/*
     @Override
     public void onPause(){
         CoreManager.saveData();
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         CoreManager.saveData();
         super.onStop();
     }
-
+*/
     @Override
     public void onResume(){
         super.onResume();
