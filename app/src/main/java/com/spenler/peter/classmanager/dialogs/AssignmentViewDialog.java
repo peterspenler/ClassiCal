@@ -108,6 +108,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
         CoreManager.getCurrentAssignment().toggleFinished();
         CoreManager.saveData();
         setValues();
+        //TODO Also refresh CourseViewActivity
         parent.refreshFragment();
     }
 

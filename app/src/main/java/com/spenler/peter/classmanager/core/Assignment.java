@@ -117,6 +117,9 @@ import java.util.Date;
             return -1;
         if(isFinished() && !other.isFinished())
             return 1;
+        if(isFinished() && other.isFinished()){
+            return -1 * Integer.compare(getDueDate().compareTo(other.getDueDate()), 0);
+        }
         return Integer.compare(getDueDate().compareTo(other.getDueDate()), 0);
     }
 }

@@ -46,6 +46,8 @@ public class CourseAssignmentsFragment extends Fragment {
 
         currentCourse = CoreManager.getCurrentCourse();
 
+        currentCourse.sortAssignments();
+
         CourseAssignmentsFragment.RVAdapter adapter = new CourseAssignmentsFragment.RVAdapter(currentCourse.getAssignments());
         rv.setAdapter(adapter);
 

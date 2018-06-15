@@ -117,6 +117,10 @@ public class Course implements Serializable, Comparable<Course>{
         return Integer.compare(getName().compareTo(other.getName()), 0);
     }
 
+    public void sortAssignments() {
+        Collections.sort(assignments);
+    }
+
 /*
 
     @Override
