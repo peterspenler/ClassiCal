@@ -93,12 +93,11 @@ public class CoreManager {
         int darkColor;
         Color.colorToHSV(color, hsv);
 
-        if(hsv[1] == 0){
+        if(hsv[1] <= 0.4){
             hsv[2] += 0.25;
-        }else{
-            hsv[1] *= amount; // Format amount like "0.7f"
         }
 
+        hsv[1] *= amount; // Format amount like "0.7f"
         darkColor = Color.HSVToColor(hsv);
         return darkColor;
     }

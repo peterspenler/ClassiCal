@@ -138,7 +138,6 @@ public class AssignmentFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            Log.d("DEBUG", Integer.toString(assignments.size()));
             return assignments.size();
         }
 

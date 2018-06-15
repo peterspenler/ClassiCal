@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.spenler.peter.classmanager.activities.CourseViewActivity;
+import com.spenler.peter.classmanager.activities.MainActivity;
 import com.spenler.peter.classmanager.core.CoreManager;
 import com.spenler.peter.classmanager.core.Course;
 import com.spenler.peter.classmanager.R;
@@ -50,6 +52,15 @@ public class AddAssignmentDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         final Context context = getActivity();
+        final int MAIN_ACTIVITY = 0;
+        final int COURSE_VIEW_ACTIVITY = 1;
+        int type = -1;
+
+        if(context instanceof MainActivity){
+            type = MAIN_ACTIVITY;
+        }else if (context instanceof CourseViewActivity){
+            type = COURSE_VIEW_ACTIVITY;
+        }
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_add_assignment, null);
@@ -59,21 +70,28 @@ public class AddAssignmentDialog extends DialogFragment {
         dateEdit = dialogView.findViewById(R.id.assignmentDueDateText);
         timeEdit = dialogView.findViewById(R.id.assignmentDueTimeText);
         calendar = Calendar.getInstance();
-
         currentCourse = CoreManager.getCurrentCourse();
-        List<String> courseNames = new ArrayList<>();
-        final ArrayList<Course> courses = CoreManager.getCourses();
 
-        //Initialize spinner
-        for(int i = 0; i < courses.size(); i++){
-            courseNames.add(courses.get(i).getName());
+        if(type == MAIN_ACTIVITY){
+            List<String> courseNames = new ArrayList<>();
+            final ArrayList<Course> courses = CoreManager.getCourses();
+
+            //Initialize spinner
+            for(int i = 0; i < courses.size(); i++){
+                courseNames.add(courses.get(i).getName());
+            }
+
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, courseNames);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            courseSpinner.setAdapter(dataAdapter);
+            Log.d("COURSE TITLE", CoreManager.getCurrentCourse().getName());
+            courseSpinner.setSelection(CoreManager.courseIndexByName(CoreManager.getCurrentCourse().getName()));
+            courseSpinner.setVisibility(View.VISIBLE);
+        }else if(type == COURSE_VIEW_ACTIVITY){
+            courseSpinner.setVisibility(View.GONE);
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, courseNames);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseSpinner.setAdapter(dataAdapter);
-        Log.d("COURSE TITLE", CoreManager.getCurrentCourse().getName());
-        courseSpinner.setSelection(CoreManager.courseIndexByName(CoreManager.getCurrentCourse().getName()));
+
 
         //Initialize time and date to current time and date
         calendar.setTime(new Date());
@@ -134,6 +152,7 @@ public class AddAssignmentDialog extends DialogFragment {
 
         dialogView.setBackgroundColor(ContextCompat.getColor(context, R.color.md_blue_grey_700));
 
+        final int innerType = type;
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -143,8 +162,10 @@ public class AddAssignmentDialog extends DialogFragment {
                     @Override
                     public void onClick(View v) {
                         try {
-                            int courseIndex = CoreManager.courseIndexByName(courseSpinner.getSelectedItem().toString());
-                            currentCourse = CoreManager.getCourses().get(courseIndex);
+                            if(innerType == MAIN_ACTIVITY) {
+                                int courseIndex = CoreManager.courseIndexByName(courseSpinner.getSelectedItem().toString());
+                                currentCourse = CoreManager.getCourses().get(courseIndex);
+                            }
                             currentCourse.addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
                             CoreManager.saveData();
                             alertDialog.dismiss();
