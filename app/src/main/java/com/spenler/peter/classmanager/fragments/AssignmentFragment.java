@@ -109,7 +109,7 @@ public class AssignmentFragment extends Fragment {
                     @Override
                     public void onClick(View view){
                         CoreManager.setCurrentAssignment(assignments.get(getAdapterPosition()));
-                        startActivity(new Intent(itemView.getContext(), AssignmentViewDialog.class));
+                        startActivityForResult(new Intent(itemView.getContext(), AssignmentViewDialog.class), 1);
                     }
                 });
             }

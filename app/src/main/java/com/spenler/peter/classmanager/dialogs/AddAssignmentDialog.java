@@ -54,12 +54,17 @@ public class AddAssignmentDialog extends DialogFragment {
         final Context context = getActivity();
         final int MAIN_ACTIVITY = 0;
         final int COURSE_VIEW_ACTIVITY = 1;
+        final int ASSIGNMENT_VIEW_DIALOG = 2;
         int type = -1;
+        String title = "Add Assignment";
 
         if(context instanceof MainActivity){
             type = MAIN_ACTIVITY;
-        }else if (context instanceof CourseViewActivity){
+        }else if(context instanceof CourseViewActivity){
             type = COURSE_VIEW_ACTIVITY;
+        }else if(context instanceof AssignmentViewDialog){
+            type = ASSIGNMENT_VIEW_DIALOG;
+            title = "Edit Assignment";
         }
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -87,14 +92,18 @@ public class AddAssignmentDialog extends DialogFragment {
             Log.d("COURSE TITLE", CoreManager.getCurrentCourse().getName());
             courseSpinner.setSelection(CoreManager.courseIndexByName(CoreManager.getCurrentCourse().getName()));
             courseSpinner.setVisibility(View.VISIBLE);
-        }else if(type == COURSE_VIEW_ACTIVITY){
+        }else{
             courseSpinner.setVisibility(View.GONE);
         }
 
-
-
         //Initialize time and date to current time and date
-        calendar.setTime(new Date());
+        if(type != ASSIGNMENT_VIEW_DIALOG) {
+            calendar.setTime(new Date());
+        }else{
+            calendar.setTime(CoreManager.getCurrentAssignment().getDueDate());
+            nameEdit.setText(CoreManager.getCurrentAssignment().getName());
+            worthEdit.setText(String.format(Locale.CANADA,"%f" ,CoreManager.getCurrentAssignment().getWeight()));
+        }
         updateDate();
         updateTime();
 
@@ -140,7 +149,7 @@ public class AddAssignmentDialog extends DialogFragment {
         });
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.Add_Dialog)
-                .setTitle("Add Assignment")
+                .setTitle(title)
                 .setView(dialogView)
                 .setPositiveButton("Save", null)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -166,7 +175,13 @@ public class AddAssignmentDialog extends DialogFragment {
                                 int courseIndex = CoreManager.courseIndexByName(courseSpinner.getSelectedItem().toString());
                                 currentCourse = CoreManager.getCourses().get(courseIndex);
                             }
-                            currentCourse.addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime() ,currentCourse.getName(), currentCourse.getColor());
+                            if(innerType != ASSIGNMENT_VIEW_DIALOG) {
+                                currentCourse.addAssignment(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime(), currentCourse.getName(), currentCourse.getColor());
+                            }else{
+                                CoreManager.getCurrentAssignment().edit(nameEdit.getText().toString(), Float.parseFloat(worthEdit.getText().toString()), calendar.getTime());
+                                ((AssignmentViewDialog) context).setValues();
+                                ((AssignmentViewDialog) context).refreshBackground();
+                            }
                             CoreManager.saveData();
                             alertDialog.dismiss();
                         }

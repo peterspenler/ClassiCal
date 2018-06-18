@@ -44,6 +44,10 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
     private TextView predictedMarkView;
     private TextView weightView;
 
+    private CourseAssignmentsFragment assignments;
+    private CourseTestsFragment tests;
+    private CourseClassesFragment classes;
+
     private ViewPager mViewPager;
     public Context context = this;
 
@@ -114,17 +118,13 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
 
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-     //   CourseAssignmentsFragment assignments = CourseAssignmentsFragment.newInstance(course);
-     //   CourseTestsFragment tests = new CourseTestsFragment();
-     //   CourseClassesFragment classes = new CourseClassesFragment();
+        assignments = CourseAssignmentsFragment.newInstance(course);
+        tests = new CourseTestsFragment();
+        classes = new CourseClassesFragment();
 
-    //    assignments.setArguments(bundle);
-      //  tests.setArguments(bundle);
-       // classes.setArguments(bundle);
-
-        adapter.addFragment(CourseAssignmentsFragment.newInstance(course), "Assignments");
-        adapter.addFragment(new CourseTestsFragment(), "Tests");
-        adapter.addFragment(new CourseClassesFragment(), "Classes");
+        adapter.addFragment(assignments, "Assignments");
+        adapter.addFragment(tests, "Tests");
+        adapter.addFragment(classes, "Classes");
         viewPager.setAdapter(adapter);
     }
 
@@ -160,6 +160,10 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         public int getCount() {
             return mFragmentList.size();
         }
+    }
+
+    public CourseAssignmentsFragment getAssignmentFragment() {
+        return assignments;
     }
 
     @Override

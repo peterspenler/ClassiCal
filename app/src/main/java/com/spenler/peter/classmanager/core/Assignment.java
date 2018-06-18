@@ -122,4 +122,10 @@ import java.util.Date;
         }
         return Integer.compare(getDueDate().compareTo(other.getDueDate()), 0);
     }
+
+    public void edit(String name, float weight, Date dueDate) {
+        this.name = name;
+        this.weight = weight;
+        this.dueDate = dueDate;
+    }
 }

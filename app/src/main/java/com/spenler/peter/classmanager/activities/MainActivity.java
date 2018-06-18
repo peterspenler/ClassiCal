@@ -105,9 +105,6 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         if(page == 1){
             final AddAssignmentDialog addAssignmentDialog = new AddAssignmentDialog();
             CoreManager.setCurrentCourse(CoreManager.getCourseByIndex(0));
-            Bundle b = new Bundle();
-            b.putInt("type", 1);
-            addAssignmentDialog.setArguments(b);
             addAssignmentDialog.show(getFragmentManager(), "Add Assignment Dialog");
         }
     }

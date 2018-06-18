@@ -3,6 +3,8 @@ package com.spenler.peter.classmanager.dialogs;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -16,24 +18,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spenler.peter.classmanager.R;
+import com.spenler.peter.classmanager.activities.CourseViewActivity;
 import com.spenler.peter.classmanager.activities.MainActivity;
 import com.spenler.peter.classmanager.core.App;
 import com.spenler.peter.classmanager.core.Assignment;
 import com.spenler.peter.classmanager.core.CoreManager;
 import com.spenler.peter.classmanager.fragments.AssignmentFragment;
+import com.spenler.peter.classmanager.fragments.CourseAssignmentsFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Created by Gaming PC on 2017-09-05.
  */
 
-public class AssignmentViewDialog extends /*AppCompat*/Activity{
+public class AssignmentViewDialog extends Activity{
     public Activity activity;
     public View view;
     private Assignment assignment;
-    private AssignmentFragment parent;
 
     SimpleDateFormat sdf;
     SimpleDateFormat stf;
@@ -45,6 +49,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
     private TextView assignmentViewMarkTitle;
     private TextView assignmentViewMark;
     private ImageView assignmentViewCheckImage;
+    private TextView title;
 
     private Button completeAssignmentButton;
 
@@ -54,16 +59,10 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
         setContentView(R.layout.activity_assignment_view);
         activity = this;
         assignment = CoreManager.getCurrentAssignment();
-        parent = MainActivity.getAssignmentFragment();
-        //android.app.ActionBar actionBar = getActionBar();
-        //actionBar.setTitle(assignment.getName());
-        //actionBar.setBackgroundDrawable(new ColorDrawable(assignment.getColor()));
-        //int darkColor = CoreManager.darkenColor(assignment.getColor(), 0.7f);
-        //activity.getWindow().setStatusBarColor(darkColor);
 
         getWindow().setBackgroundDrawableResource(R.color.md_blue_grey_700);
 
-        TextView title = findViewById(R.id.dialogActionBarTitle);
+        title = findViewById(R.id.dialogActionBarTitle);
         ImageView actionBar = findViewById(R.id.dialogActionBar);
         title.setText(assignment.getName());
         ((GradientDrawable) actionBar.getDrawable()).setColor(assignment.getColor());
@@ -83,7 +82,8 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
         setValues();
     }
 
-    private void setValues(){
+     void setValues(){
+        title.setText(assignment.getName());
         assignmentViewName.setText("For: " + assignment.getCourseName());
         assignmentViewDueDate.setText("Due: " + sdf.format(assignment.getDueDate()) + " at " + stf.format(assignment.getDueDate()));
         assignmentViewDueIn.setText(CoreManager.timeUntilDueString(assignment.getDueDate()));
@@ -108,11 +108,12 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
         CoreManager.getCurrentAssignment().toggleFinished();
         CoreManager.saveData();
         setValues();
-        //TODO Also refresh CourseViewActivity
-        parent.refreshFragment();
+        refreshBackground();
     }
 
     public void editAssignment(View view) {
+        AddAssignmentDialog dialog =  new AddAssignmentDialog();
+        dialog.show(getFragmentManager(), "Edit Assignment Dialog");
     }
 
     public void deleteAssignment(View view) {
@@ -134,6 +135,18 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
                 })
                 .create();
         dialog.show();
+    }
+
+    public void refreshBackground(){
+        final String prevView = Objects.requireNonNull(getCallingActivity()).getClassName();
+
+        if(prevView.equals(MainActivity.class.getName())){
+            MainActivity.getAssignmentFragment().refreshFragment();
+        }else if(prevView.equals(CourseViewActivity.class.getName())){
+            //TODO Also refresh CourseViewActivity
+            Fragment backFragment = getFragmentManager().findFragmentByTag("Assignments");
+            return;
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -173,6 +186,7 @@ public class AssignmentViewDialog extends /*AppCompat*/Activity{
                             assignment.setMark(Float.parseFloat(edit.getText().toString()));
                             alertDialog.dismiss();
                             thisActivity.setValues();
+                            thisActivity.refreshBackground();
                             CoreManager.saveData();
                         }catch(NumberFormatException e){
                             Toast.makeText(App.getContext(), "Mark must be decimal number", Toast.LENGTH_SHORT).show();

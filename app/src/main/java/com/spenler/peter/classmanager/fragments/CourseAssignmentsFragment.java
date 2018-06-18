@@ -30,6 +30,7 @@ import java.util.Locale;
 public class CourseAssignmentsFragment extends Fragment {
     private static final String TAG = "CourseAssignmentsFragment";
     private Course currentCourse;
+    private static CourseAssignmentsFragment.RVAdapter adapter;
     SimpleDateFormat sdf;
     SimpleDateFormat stf;
 
@@ -48,17 +49,21 @@ public class CourseAssignmentsFragment extends Fragment {
 
         currentCourse.sortAssignments();
 
-        CourseAssignmentsFragment.RVAdapter adapter = new CourseAssignmentsFragment.RVAdapter(currentCourse.getAssignments());
+        adapter = new CourseAssignmentsFragment.RVAdapter(currentCourse.getAssignments());
         rv.setAdapter(adapter);
 
         return view;
+    }
+
+    public static void refreshFragment(){
+        CoreManager.getCurrentCourse().sortAssignments();
+        adapter.notifyDataSetChanged();
     }
 
     public static CourseAssignmentsFragment newInstance (Course course){
         CourseAssignmentsFragment caf = new CourseAssignmentsFragment();
         Bundle bundle = new Bundle();
         CoreManager.setCurrentCourse(course);
-        //bundle.putParcelable("course",course);
         caf.setArguments(bundle);
         return caf;
     }
@@ -93,7 +98,7 @@ public class CourseAssignmentsFragment extends Fragment {
                     @Override
                     public void onClick(View view){
                         CoreManager.setCurrentAssignment(assignments.get(getAdapterPosition()));
-                        startActivity(new Intent(itemView.getContext(), AssignmentViewDialog.class));
+                        startActivityForResult(new Intent(itemView.getContext(), AssignmentViewDialog.class), 1);
                     }
                 });
             }

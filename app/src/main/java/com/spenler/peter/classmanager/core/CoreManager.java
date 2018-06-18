@@ -23,7 +23,6 @@ import java.util.Date;
 
 public class CoreManager {
     static private ArrayList<Course> courses = new ArrayList<>();
-    //static private HashMap<String, Course> courseMap = new HashMap<>();
     static private Course currentCourse;
     static private Assignment currentAssignment;
 
@@ -31,7 +30,6 @@ public class CoreManager {
         try {
             courses.add(new Course(name, weight, color, courses.size()));
             saveData();
-            //courseMap.put(name, courses.get(courses.size()));
         }
         catch(Exception e){
             Log.e("CoreManager/addCourse", "Course Could not be Added");
@@ -75,7 +73,6 @@ public class CoreManager {
             }
         }
         return null;
-        //return courseMap.get(name);
     }
 
     public static com.spenler.peter.classmanager.core.Course getCourseByIndex(int index){return courses.get(index);}
@@ -105,16 +102,12 @@ public class CoreManager {
     }
 
     public static int saveData(){
-        FileOutputStream dfos, hfos; //Data and HashMap File Output Streams respectively
+        FileOutputStream dfos;
         try{
             dfos = App.getContext().openFileOutput("CourseData.bin", Context.MODE_PRIVATE);
-            //hfos = MainActivity.activity.openFileOutput("HashData", MainActivity.activity.MODE_PRIVATE);
             ObjectOutputStream doos = new ObjectOutputStream(dfos);
-            //ObjectOutputStream hoos = new ObjectOutputStream(hfos);
             doos.writeObject(courses);
             doos.close();
-            //hoos.writeObject(courseMap);
-            //hoos.close();
             return 0;
         }
         catch(Exception e){
@@ -123,16 +116,12 @@ public class CoreManager {
         }
     }
     public static int loadData(){
-        FileInputStream dfis, hfis; //Data and HashMap File Input Streams respectively
+        FileInputStream dfis;
         try {
             dfis = App.getContext().openFileInput("CourseData.bin");
-            //hfis = MainActivity.activity.openFileInput("HashData");
             ObjectInputStream dois = new ObjectInputStream(dfis);
             courses = (ArrayList<Course>) dois.readObject();
             dois.close();
-            //ObjectInputStream hois = new ObjectInputStream(hfis);
-            //courseMap = (HashMap<String, Course>) hois.readObject();
-           // hois.close();
             Log.d("Num loaded Courses", Integer.toString(courses.size()));
         }
         catch(Exception e){
