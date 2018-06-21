@@ -28,8 +28,6 @@ import java.util.Locale;
  */
 
 public class CourseAssignmentsFragment extends Fragment {
-    private static final String TAG = "CourseAssignmentsFragment";
-    private Course currentCourse;
     private static CourseAssignmentsFragment.RVAdapter adapter;
     SimpleDateFormat sdf;
     SimpleDateFormat stf;
@@ -45,7 +43,7 @@ public class CourseAssignmentsFragment extends Fragment {
         sdf = new SimpleDateFormat("EEE MMM d", Locale.US);
         stf = new SimpleDateFormat("h:mm a", Locale.US);
 
-        currentCourse = CoreManager.getCurrentCourse();
+        Course currentCourse = CoreManager.getCurrentCourse();
 
         currentCourse.sortAssignments();
 

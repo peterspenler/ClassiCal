@@ -35,8 +35,6 @@ import java.util.Objects;
  */
 
 public class AssignmentViewDialog extends Activity{
-    public Activity activity;
-    public View view;
     private Assignment assignment;
 
     SimpleDateFormat sdf;
@@ -57,7 +55,6 @@ public class AssignmentViewDialog extends Activity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment_view);
-        activity = this;
         assignment = CoreManager.getCurrentAssignment();
 
         getWindow().setBackgroundDrawableResource(R.color.md_blue_grey_700);

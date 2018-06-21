@@ -14,7 +14,6 @@ import com.spenler.peter.classmanager.R;
  */
 
 public class CourseTestsFragment extends Fragment {
-    private static final String TAG = "Tab1Fragment";
 
     @Nullable
     @Override

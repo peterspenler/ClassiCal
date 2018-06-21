@@ -1,6 +1,5 @@
 package com.spenler.peter.classmanager.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
@@ -21,24 +20,24 @@ import com.spenler.peter.classmanager.core.CoreManager;
 import com.spenler.peter.classmanager.fragments.CoursesFragment;
 import com.spenler.peter.classmanager.R;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener{
 
-    private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private CoursesFragment coursesFragment;
     private static AssignmentFragment assignmentFragment;
-    public Context context;
-    public Activity activity;
+    public WeakReference<Context> context;
+    public WeakReference<MainActivity> activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = getApplicationContext();
-        activity = this;
+        context = new WeakReference<>(getApplicationContext());
+        activity = new WeakReference<>(this);
 
         Log.d("SAVE DEBUGGING", "OnCreate called");
         CoreManager.loadData();
@@ -46,10 +45,10 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         coursesFragment = new CoursesFragment();
         assignmentFragment = new AssignmentFragment();
 
-        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        SectionsPageAdapter mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
-        this.getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.md_green_700));
+        this.getWindow().setStatusBarColor(ContextCompat.getColor(context.get(), R.color.md_green_700));
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -112,25 +111,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     public static AssignmentFragment getAssignmentFragment() {
         return assignmentFragment;
     }
-/*
-    @Override
-    public void onPause(){
-        CoreManager.saveData();
-        super.onPause();
-    }
 
-    @Override
-    public void onDestroy(){
-        CoreManager.saveData();
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onStop() {
-        CoreManager.saveData();
-        super.onStop();
-    }
-*/
     @Override
     public void onResume(){
         super.onResume();

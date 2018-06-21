@@ -36,7 +36,7 @@ import java.util.List;
  */
 
 public class CourseViewActivity extends AppCompatActivity implements DialogInterface.OnDismissListener{
-    public Activity activity;
+    //public Activity activity;
     public View view;
     private static Course course;
 
@@ -56,7 +56,6 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
         //Bundle bundle = getIntent().getExtras();
-        activity = this;
         course = CoreManager.getCurrentCourse();
 
         //SectionsPageAdapter mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
@@ -72,7 +71,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         actionBar.setBackgroundDrawable(new ColorDrawable(course.getColor()));
 
         int darkColor = CoreManager.darkenColor(course.getColor(), 0.7f);
-        activity.getWindow().setStatusBarColor(darkColor);
+        this.getWindow().setStatusBarColor(darkColor);
 
         AppBarLayout tabBarBackground = findViewById(R.id.appbar);
         int lightColor = CoreManager.darkenColor(course.getColor(), 1.1f);

@@ -35,8 +35,6 @@ public class AddCourseDialog extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        final Context context = getActivity();
-
         final LayoutInflater inflater = getActivity().getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_add_course, null);
         final EditText nameEdit = dialogView.findViewById(R.id.nameDialog);

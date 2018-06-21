@@ -31,7 +31,6 @@ import java.util.Locale;
  */
 
 public class AssignmentFragment extends Fragment {
-    private static final String TAG = "AssignmentFragment";
     private List<Assignment> assignments;
     private AssignmentFragment.RVAdapter adapter;
     SimpleDateFormat sdf;
