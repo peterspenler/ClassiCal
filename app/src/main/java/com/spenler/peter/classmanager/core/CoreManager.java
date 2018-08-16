@@ -1,6 +1,5 @@
 package com.spenler.peter.classmanager.core;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -10,8 +9,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -168,7 +165,7 @@ public class CoreManager {
 
     public static String timeUntilDueString(Date duedate){
         Date time = Calendar.getInstance().getTime();
-        long compare = duedate.getTime() - time.getTime();
+        long compare = stripSeconds(duedate).getTime() - stripSeconds(time).getTime();
 
         if(compare > 0){
             if(compare < 60000){
@@ -207,5 +204,13 @@ public class CoreManager {
                 return "Over a month overdue";
             }
         }
+    }
+
+    public static Date stripSeconds(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 }
