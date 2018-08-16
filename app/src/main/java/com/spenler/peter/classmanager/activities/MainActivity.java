@@ -1,7 +1,10 @@
 package com.spenler.peter.classmanager.activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +35,18 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     public WeakReference<Context> context;
     public WeakReference<MainActivity> activity;
 
+    BroadcastReceiver tickReceiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().compareTo(Intent.ACTION_TIME_TICK) == 0) {
+                Log.v("Clock", "Tick");
+                if(assignmentFragment != null) {
+                    assignmentFragment.refreshFragment();
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     private void setupViewPager (ViewPager viewPager){
@@ -118,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         int currentPosition = mViewPager.getCurrentItem();
         setupViewPager(mViewPager);
         mViewPager.setCurrentItem(currentPosition);
+        registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     @Override
@@ -125,5 +143,33 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         int currentPosition = mViewPager.getCurrentItem();
         setupViewPager(mViewPager);
         mViewPager.setCurrentItem(currentPosition);
+        if(tickReceiver!=null)
+            try {
+                unregisterReceiver(tickReceiver);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(tickReceiver!=null)
+            try {
+                unregisterReceiver(tickReceiver);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+    }
+
+    @Override
+    protected void onStop() {
+        if(tickReceiver!=null)
+            try {
+                unregisterReceiver(tickReceiver);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        super.onStop();
     }
 }

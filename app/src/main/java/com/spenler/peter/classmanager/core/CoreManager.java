@@ -1,17 +1,17 @@
 package com.spenler.peter.classmanager.core;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
-
-import com.spenler.peter.classmanager.R;
-import com.spenler.peter.classmanager.activities.MainActivity;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -101,21 +101,19 @@ public class CoreManager {
         return darkColor;
     }
 
-    public static int saveData(){
+    public static void saveData(){
         FileOutputStream dfos;
         try{
             dfos = App.getContext().openFileOutput("CourseData.bin", Context.MODE_PRIVATE);
             ObjectOutputStream doos = new ObjectOutputStream(dfos);
             doos.writeObject(courses);
             doos.close();
-            return 0;
         }
         catch(Exception e){
             e.printStackTrace();
-            return 1;
         }
     }
-    public static int loadData(){
+    public static void loadData(){
         FileInputStream dfis;
         try {
             dfis = App.getContext().openFileInput("CourseData.bin");
@@ -127,7 +125,6 @@ public class CoreManager {
         catch(Exception e){
             e.printStackTrace();
         }
-        return 1;
     }
 
     public static void sortCourses(){
@@ -170,35 +167,42 @@ public class CoreManager {
     }
 
     public static String timeUntilDueString(Date duedate){
-        long compare = duedate.getTime() - Calendar.getInstance().getTime().getTime();
+        Date time = Calendar.getInstance().getTime();
+        long compare = duedate.getTime() - time.getTime();
 
         if(compare > 0){
             if(compare < 60000){
                 return "Due in < 1 minute";
-            }if(compare < 1200000){
+            }if(compare < 120000){
                 return "Due in 1 minute";
             }else if(compare < 3600000){
-                return "Due in " + (int)Math.ceil(((double)compare)/60000.0f) + " minutes";
+                return "Due in " + (int)Math.floor(((double)compare)/60000.0f) + " minutes";
             }else if(compare < 7200000){
                 return "Due in 1 hour";
             }else if(compare < 86400000){
-                return "Due in " + (int)Math.ceil(((double)compare)/3600000.0f) + " hours";
+                return "Due in " + (int)Math.floor(((double)compare)/3600000.0f) + " hours";
             }else if(compare < 172800000){
                 return "Due in 1 day";
             }else if(compare < 2592000000L){
-                return "Due in " + (int)Math.ceil(((double)compare)/86400000.0f) + " days";
+                return "Due in " + (int)Math.floor(((double)compare)/86400000.0f) + " days";
             }else{
                 return "Due in over a month";
             }
         }else{
             if(compare > -60000){
                 return "< 1 minute overdue";
+            }if(compare > -120000){
+                return "1 minute overdue";
             }else if(compare > -3600000){
-                return (int)Math.ceil(((double)compare * -1)/60000.0f) + " minutes overdue";
+                return (int)Math.floor(((double)compare * -1)/60000.0f) + " minutes overdue";
+            }else if(compare > -7200000){
+                return "1 hour overdue";
             }else if(compare > -86400000){
-                return (int)Math.ceil(((double)compare * -1)/3600000.0f) + " hours overdue";
+                return (int)Math.floor(((double)compare * -1)/3600000.0f) + " hours overdue";
+            }else if(compare > -172800000){
+                return "1 day overdue";
             }else if(compare > -2592000000L){
-                return (int)Math.ceil(((double)compare * -1)/86400000.0f) + " days overdue";
+                return (int)Math.floor(((double)compare * -1)/86400000.0f) + " days overdue";
             }else{
                 return "Over a month overdue";
             }
