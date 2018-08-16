@@ -2,8 +2,11 @@ package com.spenler.peter.classmanager.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -51,6 +54,18 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
     private ViewPager mViewPager;
     public Context context = this;
 
+    BroadcastReceiver tickReceiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().compareTo(Intent.ACTION_TIME_TICK) == 0) {
+                Log.v("Clock", "Tick");
+                if(assignments != null) {
+                    CourseAssignmentsFragment.refreshFragment();
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +96,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         currentMarkView = findViewById(R.id.courseCurrentMarkText);
         predictedMarkView = findViewById(R.id.coursePredictedMarkText);
         weightView = findViewById(R.id.courseWeightText);
+        registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 
         refreshGrades();
     }
@@ -200,7 +216,7 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         super.onResume();
         refreshGrades();
         setupViewPager(mViewPager);
-        Log.d("SAVE DEBUGGING", "OnResume called");
+        registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     @Override
@@ -208,5 +224,36 @@ public class CourseViewActivity extends AppCompatActivity implements DialogInter
         int currentPosition = mViewPager.getCurrentItem();
         setupViewPager(mViewPager);
         mViewPager.setCurrentItem(currentPosition);
+        if(tickReceiver!=null) {
+            try {
+                unregisterReceiver(tickReceiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        if(tickReceiver!=null) {
+            try {
+                unregisterReceiver(tickReceiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        if(tickReceiver!=null) {
+            try {
+                unregisterReceiver(tickReceiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        super.onPause();
     }
 }

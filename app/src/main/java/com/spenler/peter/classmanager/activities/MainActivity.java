@@ -143,33 +143,36 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         int currentPosition = mViewPager.getCurrentItem();
         setupViewPager(mViewPager);
         mViewPager.setCurrentItem(currentPosition);
-        if(tickReceiver!=null)
+        if(tickReceiver!=null) {
             try {
                 unregisterReceiver(tickReceiver);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(tickReceiver!=null)
+        if(tickReceiver!=null) {
             try {
                 unregisterReceiver(tickReceiver);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
     }
 
     @Override
     protected void onStop() {
-        if(tickReceiver!=null)
+        if(tickReceiver!=null) {
             try {
                 unregisterReceiver(tickReceiver);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
         super.onStop();
     }
 }
